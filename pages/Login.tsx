@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { authApi } from '../src/services/api';
 import { Page } from '../types';
 
+import { User } from '../src/services/api';
+
 interface LoginProps {
-  onLoginSuccess: () => void;
+  onLoginSuccess: (user: User) => void;
   onNavigateToRegister: () => void;
 }
 
@@ -23,11 +25,11 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
         password: password.trim()
       });
       
-      if (response.success && response.token) {
+      if (response.success && response.token && response.user) {
         // 保存token到本地存储
         localStorage.setItem('token', response.token);
-        // 登录成功，调用回调函数
-        onLoginSuccess();
+        // 登录成功，调用回调函数并传递用户信息
+        onLoginSuccess(response.user);
       } else {
         setError('登录失败，请检查账号和密码');
       }
@@ -48,11 +50,11 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
         guest: true
       });
       
-      if (response.success && response.token) {
+      if (response.success && response.token && response.user) {
         // 保存token到本地存储
         localStorage.setItem('token', response.token);
-        // 登录成功，调用回调函数
-        onLoginSuccess();
+        // 登录成功，调用回调函数并传递用户信息
+        onLoginSuccess(response.user);
       } else {
         setError('登录失败，请重试');
       }

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { Page, Lesson } from '../types';
 import { lessonApi } from '../src/services/api';
 
@@ -84,7 +84,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
   // 获取每日一词（使用第一个推荐课程）
   const dailyLesson = featuredLessons.length > 0 ? featuredLessons[0] : DEFAULT_FRIEND_LESSON;
 
-  const handleSearch = (e?: React.FormEvent) => {
+  const handleSearch = useCallback((e?: React.FormEvent) => {
     e?.preventDefault();
     const query = searchQuery.trim();
     if (!query) return;
@@ -104,7 +104,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
     } else {
       setShowMissingModal(true);
     }
-  };
+  }, [searchQuery, featuredLessons, onNavigate]);
 
   return (
     <div className="flex flex-col min-h-screen relative">
@@ -117,7 +117,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
         </div>
         <div className="relative cursor-pointer" onClick={() => onNavigate(Page.PROFILE)}>
           <div className="w-12 h-12 bg-accent rounded-full border-4 border-white shadow-md overflow-hidden">
-            <img alt="Avatar" className="w-full h-full object-cover" src={userAvatar}/>
+            <img alt="Avatar" className="w-full h-full object-cover" src={userAvatar} loading="lazy"/>
           </div>
           <div className="absolute -bottom-1 -right-1 bg-secondary text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white text-yellow-900 shadow-sm">
             LV.3
@@ -157,7 +157,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
         </div>
         <div className="w-28 flex justify-center">
           <div className="animate-bounce-slow relative">
-            <img alt="Mascot" className="w-24 h-24 drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7e5R8u2xiDc6tD6-xtIp7Zx3-ccq4qflGPMavW5bkzSf4mlt0jd4tI_OcGdIqp_uS1KwQrwm4HqfJvD5tV1N91bpeZ54HQmHKXA8sjijCUjUtZr_y9Ai4WOQa5249ULNLT6QLnasyxxJr39rSJ5gMmRMKUChD0xdj2g86gqQmp7Sbj9FReloHvPS-eLN2AyAOHr17cikoXpZ1cmHES8mVLHrLsGXIJ2n95CquLq_Am-RnNq4P8DWcIkmadgLiF3itBSN2diPaPKo"/>
+            <img alt="Mascot" className="w-24 h-24 drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7e5R8u2xiDc6tD6-xtIp7Zx3-ccq4qflGPMavW5bkzSf4mlt0jd4tI_OcGdIqp_uS1KwQrwm4HqfJvD5tV1N91bpeZ54HQmHKXA8sjijCUjUtZr_y9Ai4WOQa5249ULNLT6QLnasyxxJr39rSJ5gMmRMKUChD0xdj2g86gqQmp7Sbj9FReloHvPS-eLN2AyAOHr17cikoXpZ1cmHES8mVLHrLsGXIJ2n95CquLq_Am-RnNq4P8DWcIkmadgLiF3itBSN2diPaPKo" loading="lazy"/>
           </div>
         </div>
       </div>
@@ -271,4 +271,4 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
   );
 };
 
-export default Home;
+export default memo(Home);

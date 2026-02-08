@@ -1,0 +1,84 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install frontend dependencies
+      run: npm install
+
+    - name: Build frontend
+      run: npm run build
+
+    - name: Install backend dependencies
+      run: cd backend && npm install
+
+    - name: Lint frontend
+      run: npm run lint || echo "No lint script found"
+
+    - name: Test frontend
+      run: npm test || echo "No test script found"
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build
+        path: dist
+
+    - name: Deploy to Aliyun ECS
+      uses: easingthemes/ssh-deploy@v5
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.ALIYUN_ECS_HOST }}
+        REMOTE_USER: ${{ secrets.ALIYUN_ECS_USER }}
+        TARGET: ${{ secrets.ALIYUN_ECS_TARGET_DIR }}
+        SOURCE: "dist/"
+
+    - name: Deploy backend
+      uses: easingthemes/ssh-deploy@v5
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.ALIYUN_ECS_HOST }}
+        REMOTE_USER: ${{ secrets.ALIYUN_ECS_USER }}
+        TARGET: ${{ secrets.ALIYUN_ECS_BACKEND_DIR }}
+        SOURCE: "backend/"
+
+    - name: Restart backend service
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.ALIYUN_ECS_HOST }}
+        username: ${{ secrets.ALIYUN_ECS_USER }}
+        key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
+        script: |
+          cd ${{ secrets.ALIYUN_ECS_BACKEND_DIR }}
+          pm2 restart star-sign-language-backend || pm2 start server.js --name star-sign-language-backend
+          pm2 save

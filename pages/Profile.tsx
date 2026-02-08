@@ -29,7 +29,7 @@ const Profile: React.FC<ProfileProps> = ({ onNavigate, userName, userAvatar }) =
           <div className="bg-gradient-to-b from-primary/10 to-transparent rounded-3xl p-6 text-center relative overflow-visible">
             <div className="relative w-40 h-40 mx-auto mb-4 group cursor-pointer" onClick={() => onNavigate(Page.EDIT_PROFILE)}>
               <div className="absolute inset-0 bg-white rounded-full shadow-soft flex items-center justify-center p-1">
-                <img alt="Avatar" className="w-full h-full rounded-full bg-blue-50 object-cover" src={userAvatar}/>
+                <img alt="Avatar" className="w-full h-full rounded-full bg-blue-50 object-cover" src={userAvatar} loading="lazy"/>
               </div>
               <div className="absolute bottom-2 right-2 bg-secondary text-white p-2 rounded-full shadow-lg transform group-hover:scale-110 transition-transform">
                 <span className="material-icons-round text-sm">edit</span>

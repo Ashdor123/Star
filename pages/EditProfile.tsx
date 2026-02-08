@@ -83,7 +83,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ userName, userAvatar, onSave,
             className="w-full bg-primary text-white font-black py-5 rounded-[2rem] shadow-xl shadow-primary/20 active:scale-95 transition-all text-lg flex items-center justify-center gap-2"
           >
             <span className="material-icons-round">check_circle</span>
-            保存设置
+            <span>确认修改</span>
           </button>
         </div>
       </main>

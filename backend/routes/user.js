@@ -3,6 +3,8 @@ const router = express.Router();
 const supabase = require('../config/supabase');
 const { generateToken } = require('../utils/auth');
 const authenticate = require('../middleware/auth');
+const bcrypt = require('bcryptjs');
+const SALT_ROUNDS = 10;
 
 /**
  * @route POST /api/auth/register
@@ -29,12 +31,15 @@ router.post('/register', async (req, res) => {
     let user = null;
     
     try {
+      // 哈希密码
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+      
       const { data: newUser, error } = await supabase
         .from('users')
         .insert([{
           name,
           account,
-          password,
+          password: hashedPassword,
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg',
           level: 1
         }])
@@ -135,7 +140,8 @@ router.post('/login', async (req, res) => {
         } else {
           // 验证密码
           const foundUser = users[0];
-          if (foundUser.password !== password) {
+          const isPasswordValid = await bcrypt.compare(password, foundUser.password);
+          if (!isPasswordValid) {
             return res.status(401).json({ error: '账号或密码错误' });
           }
           user = foundUser;

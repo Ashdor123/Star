@@ -1,18 +1,20 @@
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, memo, lazy, Suspense } from 'react';
 import { Page, Lesson } from './types';
-import Home from './pages/Home';
-import Learning from './pages/Learning';
-import Store from './pages/Store';
-import Challenge from './pages/Challenge';
-import Profile from './pages/Profile';
-import LessonDetail from './pages/LessonDetail';
-import Settings from './pages/Settings';
-import EditProfile from './pages/EditProfile';
-import Login from './pages/Login';
-import Register from './pages/Register';
 import TabBar from './components/TabBar';
 import { authApi } from "./src/services/api";
+
+// 懒加载页面组件
+const Home = lazy(() => import('./pages/Home'));
+const Learning = lazy(() => import('./pages/Learning'));
+const Store = lazy(() => import('./pages/Store'));
+const Challenge = lazy(() => import('./pages/Challenge'));
+const Profile = lazy(() => import('./pages/Profile'));
+const LessonDetail = lazy(() => import('./pages/LessonDetail'));
+const Settings = lazy(() => import('./pages/Settings'));
+const EditProfile = lazy(() => import('./pages/EditProfile'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>(Page.HOME);
@@ -85,8 +87,13 @@ const App: React.FC = () => {
   };
 
   // 登录成功处理函数
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = (user: any) => {
+    // 更新用户信息
+    setUserName(user.name);
+    setUserAvatar(user.avatar);
+    // 更新登录状态
     setIsAuthenticated(true);
+    // 导航到首页
     setCurrentPage(Page.HOME);
   };
 
@@ -126,72 +133,81 @@ const App: React.FC = () => {
   }, []);
 
   const renderPage = () => {
-    // 如果用户未登录，只显示登录或注册页面
-    if (!isAuthenticated) {
-      if (currentPage === Page.REGISTER) {
-        return <Register onRegisterSuccess={handleRegisterSuccess} onBack={navigateToLogin} />;
-      } else {
-        return <Login onLoginSuccess={handleLoginSuccess} onNavigateToRegister={navigateToRegister} />;
-      }
-    }
+    // 加载状态组件
+    const LoadingFallback = () => (
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
 
-    switch (currentPage) {
-      case Page.HOME:
-        return <Home onNavigate={navigateTo} userAvatar={userAvatar} userName={userName} />;
-      case Page.LEARNING:
-        return (
-          <Learning 
-            onNavigate={navigateTo} 
-            initialTab={learningTab} 
-            onTabChange={setLearningTab} 
-          />
-        );
-      case Page.STORE:
-        return <Store onNavigate={navigateTo} />;
-      case Page.CHALLENGE:
-        return <Challenge onNavigate={navigateTo} userAvatar={userAvatar} />;
-      case Page.PROFILE:
-        return <Profile onNavigate={navigateTo} userName={userName} userAvatar={userAvatar} />;
-      case Page.SETTINGS:
-        return <Settings onBack={() => setCurrentPage(Page.PROFILE)} onLogout={handleLogout} />;
-      case Page.EDIT_PROFILE:
-        return (
-          <EditProfile 
-              userName={userName} 
-              userAvatar={userAvatar}
-              onSave={async (name, avatar) => {
-                try {
-                  // 调用API更新用户信息
-                  const response = await authApi.updateUser({ name, avatar });
-                  if (response.success && response.user) {
-                    setUserName(response.user.name);
-                    setUserAvatar(response.user.avatar);
-                  }
-                } catch (error) {
-                  console.error('更新用户信息失败:', error);
-                  // 更新失败，仍然更新本地状态
-                  setUserName(name);
-                  setUserAvatar(avatar);
-                } finally {
-                  setCurrentPage(Page.PROFILE);
-                }
-              }}
-              onBack={() => setCurrentPage(Page.PROFILE)} 
-            />
-        );
-      case Page.LESSON_DETAIL:
-        return selectedLesson ? (
-          <LessonDetail lesson={selectedLesson} onBack={() => setCurrentPage(Page.LEARNING)} />
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        {/* 如果用户未登录，只显示登录或注册页面 */}
+        {!isAuthenticated ? (
+          currentPage === Page.REGISTER ? (
+            <Register onRegisterSuccess={handleRegisterSuccess} onBack={navigateToLogin} />
+          ) : (
+            <Login onLoginSuccess={handleLoginSuccess} onNavigateToRegister={navigateToRegister} />
+          )
         ) : (
-          <Home onNavigate={navigateTo} userAvatar={userAvatar} userName={userName} />
-        );
-      case Page.LOGIN:
-        return <Login onLoginSuccess={handleLoginSuccess} onNavigateToRegister={navigateToRegister} />;
-      case Page.REGISTER:
-        return <Register onRegisterSuccess={handleRegisterSuccess} onBack={navigateToLogin} />;
-      default:
-        return <Home onNavigate={navigateTo} userAvatar={userAvatar} userName={userName} />;
-    }
+          <>
+            {currentPage === Page.HOME && (
+              <Home onNavigate={navigateTo} userAvatar={userAvatar} userName={userName} />
+            )}
+            {currentPage === Page.LEARNING && (
+              <Learning 
+                onNavigate={navigateTo} 
+                initialTab={learningTab} 
+                onTabChange={setLearningTab} 
+              />
+            )}
+            {currentPage === Page.STORE && (
+              <Store onNavigate={navigateTo} />
+            )}
+            {currentPage === Page.CHALLENGE && (
+              <Challenge onNavigate={navigateTo} userAvatar={userAvatar} />
+            )}
+            {currentPage === Page.PROFILE && (
+              <Profile onNavigate={navigateTo} userName={userName} userAvatar={userAvatar} />
+            )}
+            {currentPage === Page.SETTINGS && (
+              <Settings onBack={() => setCurrentPage(Page.PROFILE)} onLogout={handleLogout} />
+            )}
+            {currentPage === Page.EDIT_PROFILE && (
+              <EditProfile 
+                  userName={userName} 
+                  userAvatar={userAvatar}
+                  onSave={async (name, avatar) => {
+                    try {
+                      // 调用API更新用户信息
+                      const response = await authApi.updateUser({ name, avatar });
+                      if (response.success && response.user) {
+                        setUserName(response.user.name);
+                        setUserAvatar(response.user.avatar);
+                      }
+                    } catch (error) {
+                      console.error('更新用户信息失败:', error);
+                      // 更新失败，仍然更新本地状态
+                      setUserName(name);
+                      setUserAvatar(avatar);
+                    } finally {
+                      setCurrentPage(Page.PROFILE);
+                    }
+                  }}
+                  onBack={() => setCurrentPage(Page.PROFILE)} 
+                />
+            )}
+            {currentPage === Page.LESSON_DETAIL && (
+              selectedLesson ? (
+                <LessonDetail lesson={selectedLesson} onBack={() => setCurrentPage(Page.LEARNING)} />
+              ) : (
+                <Home onNavigate={navigateTo} userAvatar={userAvatar} userName={userName} />
+              )
+            )}
+          </>
+        )}
+      </Suspense>
+    );
   };
 
   const hideTabBar = [Page.LESSON_DETAIL, Page.SETTINGS, Page.EDIT_PROFILE, Page.LOGIN, Page.REGISTER].includes(currentPage);
@@ -205,7 +221,9 @@ const App: React.FC = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto hide-scrollbar relative z-10 pb-24">
-        {renderPage()}
+        <div className="transition-opacity duration-300 animate-in fade-in">
+          {renderPage()}
+        </div>
       </div>
 
       {!hideTabBar && (
@@ -218,4 +236,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default memo(App);

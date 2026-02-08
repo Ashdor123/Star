@@ -5,6 +5,14 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>四星手语</title>
+    <!-- PWA相关标签 -->
+    <meta name="description" content="专为儿童设计的手语学习平台，通过趣味互动方式学习手语" />
+    <meta name="theme-color" content="#359EFF" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="四星手语" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <link rel="manifest" href="/manifest.json" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
@@ -86,5 +94,19 @@
 <body class="antialiased">
     <div id="root"></div>
 <script type="module" src="/index.tsx"></script>
+<script>
+  // 注册Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((registration) => {
+          console.log('Service Worker注册成功:', registration.scope);
+        })
+        .catch((error) => {
+          console.error('Service Worker注册失败:', error);
+        });
+    });
+  }
+</script>
 </body>
 </html>

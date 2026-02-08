@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:3001/api';
+// 根据环境选择API基础URL
+const API_BASE_URL = import.meta.env.PROD ? '/api' : 'http://localhost:3001/api';
 
 interface ApiRequestOptions {
   method?: string;
@@ -187,14 +188,26 @@ export const lessonApi = {
   },
 };
 
+// 学习进度相关类型
+interface ProgressResponse {
+  success: boolean;
+  progress: LearningProgress[];
+}
+
+interface SingleProgressResponse {
+  success: boolean;
+  progress: LearningProgress;
+}
+
 // 学习进度相关API
 export const progressApi = {
   /**
    * 获取用户学习进度
    * @returns 学习进度
    */
-  getProgress: () => {
-    return apiRequest<LearningProgress[]>('/progress');
+  getProgress: async () => {
+    const response = await apiRequest<ProgressResponse>('/progress');
+    return response.progress;
   },
 
   /**
@@ -202,8 +215,9 @@ export const progressApi = {
    * @param lessonId - 课程ID
    * @returns 学习进度
    */
-  getLessonProgress: (lessonId: string) => {
-    return apiRequest<LearningProgress>(`/progress/${lessonId}`);
+  getLessonProgress: async (lessonId: string) => {
+    const response = await apiRequest<SingleProgressResponse>(`/progress/${lessonId}`);
+    return response.progress;
   },
 
   /**
@@ -212,11 +226,12 @@ export const progressApi = {
    * @param progressData - 进度数据
    * @returns 更新结果
    */
-  updateProgress: (lessonId: string, progressData: ProgressData) => {
-    return apiRequest<LearningProgress>(`/progress/${lessonId}`, {
+  updateProgress: async (lessonId: string, progressData: ProgressData) => {
+    const response = await apiRequest<SingleProgressResponse>(`/progress/${lessonId}`, {
       method: 'PUT',
       body: JSON.stringify(progressData),
     });
+    return response.progress;
   },
 };
 

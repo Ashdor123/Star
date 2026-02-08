@@ -1,6 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { Page, Lesson } from '../types';
+import { progressApi } from '../src/services/api';
 
 interface LearningProps {
   onNavigate: (page: Page, lesson?: Lesson) => void;
@@ -34,6 +35,42 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
   const [activeTab, setActiveTab] = useState<'core' | 'extended'>(initialTab || 'core');
   const [showMoreRhymes, setShowMoreRhymes] = useState(false);
   const [selectedSafety, setSelectedSafety] = useState<any | null>(null);
+  const [learningProgress, setLearningProgress] = useState<number>(0);
+  const [completedLessons, setCompletedLessons] = useState<number>(0);
+  const [totalLessons, setTotalLessons] = useState<number>(5);
+  const [loading, setLoading] = useState(false);
+
+  // 获取学习进度
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        setLoading(true);
+        const response = await progressApi.getProgress();
+        if (response) {
+          const completed = response.filter(item => item.completed).length;
+          setCompletedLessons(completed);
+          setTotalLessons(response.length > 0 ? response.length : 5);
+          
+          // 计算总体进度
+          if (response.length > 0) {
+            const totalProgress = response.reduce((sum, item) => sum + item.progress, 0);
+            const averageProgress = Math.round(totalProgress / response.length);
+            setLearningProgress(averageProgress);
+          }
+        }
+      } catch (error) {
+        console.error('获取学习进度失败:', error);
+        // 使用默认值
+        setCompletedLessons(4);
+        setTotalLessons(5);
+        setLearningProgress(80);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProgress();
+  }, []);
 
   useEffect(() => {
     if (initialTab) {
@@ -41,10 +78,10 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
     }
   }, [initialTab]);
 
-  const handleTabToggle = (tab: 'core' | 'extended') => {
+  const handleTabToggle = useCallback((tab: 'core' | 'extended') => {
     setActiveTab(tab);
     if (onTabChange) onTabChange(tab);
-  };
+  }, [onTabChange]);
 
   const nurseryRhymes = [
     { title: '律动儿歌', icon: 'child_care', color: 'bg-tertiary/10', iconColor: 'text-tertiary' },
@@ -100,18 +137,29 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
             <div className="relative z-10 flex justify-between items-center">
               <div>
                 <h3 className="text-lg font-bold opacity-90 tracking-wide">课程进度</h3>
-                <p className="text-3xl font-black mt-1">4/5 课时</p>
+                <p className="text-3xl font-black mt-1">{completedLessons}/{totalLessons} 课时</p>
               </div>
               <div className="w-16 h-16 relative flex items-center justify-center">
                 <svg className="transform -rotate-90 w-full h-full" viewBox="0 0 100 100">
                   <circle className="text-white opacity-30" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" strokeWidth="12"></circle>
-                  <circle className="text-white" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" strokeDasharray="251.2" strokeDashoffset="50.24" strokeLinecap="round" strokeWidth="12"></circle>
+                  <circle 
+                    className="text-white" 
+                    cx="50" 
+                    cy="50" 
+                    fill="transparent" 
+                    r="40" 
+                    stroke="currentColor" 
+                    strokeDasharray="251.2" 
+                    strokeDashoffset={251.2 - (251.2 * learningProgress / 100)} 
+                    strokeLinecap="round" 
+                    strokeWidth="12"
+                  ></circle>
                 </svg>
-                <span className="absolute text-sm font-bold">80%</span>
+                <span className="absolute text-sm font-bold">{learningProgress}%</span>
               </div>
             </div>
             <div className="mt-4 bg-white/20 rounded-full h-3 w-full overflow-hidden">
-              <div className="bg-white h-full rounded-full w-4/5"></div>
+              <div className="bg-white h-full rounded-full" style={{ width: `${learningProgress}%` }}></div>
             </div>
           </div>
 
@@ -267,4 +315,4 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
   );
 };
 
-export default Learning;
+export default memo(Learning);

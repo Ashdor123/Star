@@ -1,6 +1,7 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lesson } from '../types';
+import { progressApi } from '../src/services/api';
 
 interface LessonDetailProps {
   lesson: Lesson;
@@ -8,6 +9,46 @@ interface LessonDetailProps {
 }
 
 const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, onBack }) => {
+  const [progress, setProgress] = useState(0);
+  const [completed, setCompleted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // 获取课程进度
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        setLoading(true);
+        const response = await progressApi.getLessonProgress(lesson.id);
+        if (response.progress) {
+          setProgress(response.progress);
+          setCompleted(response.completed);
+        }
+      } catch (error) {
+        console.error('获取学习进度失败:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProgress();
+  }, [lesson.id]);
+
+  // 更新学习进度
+  const updateProgress = async (newProgress: number, newCompleted: boolean = false) => {
+    try {
+      setLoading(true);
+      await progressApi.updateProgress(lesson.id, {
+        progress: newProgress,
+        completed: newCompleted
+      });
+      setProgress(newProgress);
+      setCompleted(newCompleted);
+    } catch (error) {
+      console.error('更新学习进度失败:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="flex flex-col h-full bg-background-light">
       <header className="flex justify-between items-center px-6 pt-12 pb-4 z-10">
@@ -30,6 +71,7 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, onBack }) => {
               alt="Video thumbnail" 
               className="w-full h-full object-cover opacity-80" 
               src={lesson.thumbnail}
+              loading="lazy"
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <button className="w-16 h-16 bg-primary/90 text-white rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform backdrop-blur-sm">
@@ -58,7 +100,7 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, onBack }) => {
           {lesson.steps.map((step) => (
             <div key={step.id} className="flex gap-4 mb-6 items-start">
               <div className="flex-shrink-0 w-20 h-20 bg-background-light rounded-2xl overflow-hidden border-2 border-gray-100 p-2">
-                <img alt={step.title} className="w-full h-full object-contain mix-blend-multiply" src={step.image}/>
+                <img alt={step.title} className="w-full h-full object-contain mix-blend-multiply" src={step.image} loading="lazy"/>
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
@@ -86,11 +128,20 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, onBack }) => {
 
       <footer className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-light via-background-light to-transparent pt-12 max-w-md mx-auto z-50">
         <div className="flex gap-4 items-center justify-center">
-          <button className="flex-1 h-16 bg-white border-2 border-gray-200 rounded-2xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
+          <button 
+            onClick={() => updateProgress(progress > 0 ? progress - 25 : 0)}
+            className="flex-1 h-16 bg-white border-2 border-gray-200 rounded-2xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform"
+          >
             <span className="material-icons-round text-primary text-3xl">replay</span>
             <span className="text-lg font-bold text-gray-700 tracking-wide">重复</span>
           </button>
-          <button onClick={onBack} className="flex-[2] h-16 bg-primary rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-primary/30 active:scale-95 transition-transform">
+          <button 
+            onClick={async () => {
+              await updateProgress(100, true);
+              onBack();
+            }}
+            className="flex-[2] h-16 bg-primary rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-primary/30 active:scale-95 transition-transform"
+          >
             <span className="text-xl font-bold text-white tracking-wide">下一步</span>
             <span className="material-icons-round text-white text-3xl">arrow_forward</span>
           </button>
