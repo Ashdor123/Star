@@ -90,7 +90,7 @@ jobs:
         REMOTE_USER: ${{ secrets.ALIYUN_ECS_USER }}
         TARGET: ${{ secrets.ALIYUN_ECS_TARGET_DIR || '/www/wwwroot/star-sign-language/dist' }}
         SOURCE: "dist/"
-        ARGS: "-rltgoDzvO --delete"
+        ARGS: "-rltgoDzvO --delete --exclude=.user.ini"
       continue-on-error: true
 
     # 部署后端
