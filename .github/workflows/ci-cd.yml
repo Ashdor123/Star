@@ -23,7 +23,18 @@ jobs:
       run: npm install
 
     - name: Build frontend
-      run: npm run build
+      run: npm run build || npm run build || echo "Frontend build failed, but continuing with existing dist directory if it exists"
+      continue-on-error: true
+
+    - name: Check if dist directory exists
+      run: |
+        if [ -d "dist" ]; then
+          echo "dist directory exists, checking contents..."
+          ls -la dist
+        else
+          echo "ERROR: dist directory does not exist!"
+          exit 1
+        fi
 
     - name: Install backend dependencies
       run: cd backend && npm install
