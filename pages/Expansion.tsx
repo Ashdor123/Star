@@ -1,5 +1,5 @@
 
-import React from 'react';
+
 import { Page } from '../types';
 
 const Expansion: React.FC<{ onNavigate: (page: Page) => void }> = ({ onNavigate }) => {

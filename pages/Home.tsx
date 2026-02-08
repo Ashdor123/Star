@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback, memo } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import { Page, Lesson } from '../types';
 import { lessonApi } from '../src/services/api';
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { authApi } from '../src/services/api';
 import { Page } from '../types';
 

@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback, useEffect, memo, lazy, Suspense } from 'react';
+import { useState, useCallback, useEffect, memo, lazy, Suspense } from 'react';
 import { Page, Lesson } from './types';
 import TabBar from './components/TabBar';
 import { authApi } from "./src/services/api";
