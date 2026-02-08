@@ -23,7 +23,7 @@ jobs:
       run: npm install
 
     - name: Build frontend
-      run: npm run build || npm run build || echo "Frontend build failed, but continuing with existing dist directory if it exists"
+      run: npx vite build || npm exec vite build || echo "Frontend build failed, but continuing with existing dist directory if it exists"
       continue-on-error: true
 
     - name: Check if dist directory exists
@@ -131,11 +131,20 @@ jobs:
             # 检查server.js是否存在
             if [ -f "server.js" ]; then
               echo "server.js found, starting service..."
-              # 启动或重启服务
-              pm2 restart star-sign-language-backend || pm2 start server.js --name star-sign-language-backend || echo "Service start failed"
-              pm2 save
-              echo "Service restart attempt completed"
+              # 停止旧服务
+              pm2 stop star-sign-language-backend || echo "No existing service to stop"
+              # 清理旧服务
+              pm2 delete star-sign-language-backend || echo "No existing service to delete"
+              # 启动新服务
+              pm2 start server.js --name star-sign-language-backend
+              # 等待服务启动
+              sleep 5
+              # 检查服务状态
               pm2 status
+              # 保存服务配置
+              pm2 save
+              # 查看服务日志
+              pm2 logs star-sign-language-backend --lines 20
             else
               echo "server.js not found, service start skipped"
             fi
@@ -145,4 +154,22 @@ jobs:
             echo "Directory created"
           fi
           echo "=== Backend service restart completed ==="
+      continue-on-error: true
+
+    # 检查后端服务健康状态
+    - name: Check backend service health
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.ALIYUN_ECS_HOST }}
+        username: ${{ secrets.ALIYUN_ECS_USER }}
+        key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
+        script: |
+          echo "=== Checking backend service health ==="
+          # 检查服务状态
+          pm2 status
+          # 检查服务是否正在运行
+          pm2 describe star-sign-language-backend || echo "Service description not available"
+          # 尝试访问API
+          curl -s http://localhost:3001/api/lessons || echo "API endpoint not accessible, service may still be starting"
+          echo "=== Backend service health check completed ==="
       continue-on-error: true
