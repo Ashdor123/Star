@@ -55,7 +55,7 @@ jobs:
         path: dist
 
     - name: Deploy to Aliyun ECS
-      uses: easingthemes/ssh-deploy@v5
+      uses: easingthemes/ssh-deploy@v5.1.0
       with:
         SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
         REMOTE_HOST: ${{ secrets.ALIYUN_ECS_HOST }}
@@ -64,7 +64,7 @@ jobs:
         SOURCE: "dist/"
 
     - name: Deploy backend
-      uses: easingthemes/ssh-deploy@v5
+      uses: easingthemes/ssh-deploy@v5.1.0
       with:
         SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
         REMOTE_HOST: ${{ secrets.ALIYUN_ECS_HOST }}
