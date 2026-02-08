@@ -46,7 +46,7 @@ async function apiRequest<T>(endpoint: string, options: ApiRequestOptions = {}):
 }
 
 // 类型定义
-interface User {
+export interface User {
   id: string;
   name: string;
   account?: string;

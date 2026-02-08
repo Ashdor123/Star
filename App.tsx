@@ -66,9 +66,9 @@ const App: React.FC = () => {
   }, []);
 
   // 登录函数
-  const handleLogin = async () => {
+  const handleLogin = async (loginData: { account?: string; password?: string; guest?: boolean }) => {
     try {
-      const response = await authApi.login();
+      const response = await authApi.login(loginData);
       if (response.success && response.user && response.token) {
         // 保存token
         localStorage.setItem('token', response.token);

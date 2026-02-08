@@ -65,9 +65,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
     const fetchFeaturedLessons = async () => {
       try {
         setIsLoading(true);
-        const response = await lessonApi.getFeaturedLessons();
-        if (response.success && response.lessons) {
-          setFeaturedLessons(response.lessons);
+        const lessons = await lessonApi.getFeaturedLessons();
+        if (lessons && lessons.length > 0) {
+          setFeaturedLessons(lessons);
         }
       } catch (error) {
         console.error('获取推荐课程失败:', error);
