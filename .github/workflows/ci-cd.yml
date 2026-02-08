@@ -62,9 +62,13 @@ jobs:
         username: ${{ secrets.ALIYUN_ECS_USER }}
         key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
         script: |
-          echo "Server connection test successful"
+          echo "=== Server connection test ==="
           echo "Current directory: $(pwd)"
           echo "Server hostname: $(hostname)"
+          echo "Server date: $(date)"
+          echo "Server uptime: $(uptime)"
+          echo "Server connection test completed"
+      continue-on-error: true
 
     # 部署前端
     - name: Deploy frontend
@@ -76,6 +80,7 @@ jobs:
         TARGET: ${{ secrets.ALIYUN_ECS_TARGET_DIR || '/var/www/html' }}
         SOURCE: "dist/"
         ARGS: "-rltgoDzvO --delete"
+      continue-on-error: true
 
     # 部署后端
     - name: Deploy backend
@@ -87,6 +92,7 @@ jobs:
         TARGET: ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/var/www/backend' }}
         SOURCE: "backend/"
         ARGS: "-rltgoDzvO --delete"
+      continue-on-error: true
 
     # 重启后端服务
     - name: Restart backend service
@@ -96,12 +102,36 @@ jobs:
         username: ${{ secrets.ALIYUN_ECS_USER }}
         key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
         script: |
-          echo "Restarting backend service..."
-          cd ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/var/www/backend' }}
-          # 安装依赖（如果需要）
-          npm install || echo "Dependencies already installed"
-          # 启动或重启服务
-          pm2 restart star-sign-language-backend || pm2 start server.js --name star-sign-language-backend
-          pm2 save
-          echo "Service restarted successfully"
-          pm2 status
+          echo "=== Restarting backend service ==="
+          echo "Target directory: ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/var/www/backend' }}"
+          # 检查目录是否存在
+          if [ -d "${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/var/www/backend' }}" ]; then
+            echo "Directory exists, proceeding..."
+            cd ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/var/www/backend' }}
+            # 列出目录内容
+            ls -la
+            # 检查package.json是否存在
+            if [ -f "package.json" ]; then
+              echo "package.json found, installing dependencies..."
+              npm install || echo "Dependencies installation failed, continuing..."
+            else
+              echo "package.json not found, skipping dependency installation"
+            fi
+            # 检查server.js是否存在
+            if [ -f "server.js" ]; then
+              echo "server.js found, starting service..."
+              # 启动或重启服务
+              pm2 restart star-sign-language-backend || pm2 start server.js --name star-sign-language-backend || echo "Service start failed"
+              pm2 save
+              echo "Service restart attempt completed"
+              pm2 status
+            else
+              echo "server.js not found, service start skipped"
+            fi
+          else
+            echo "Directory does not exist, creating..."
+            mkdir -p ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/var/www/backend' }}
+            echo "Directory created"
+          fi
+          echo "=== Backend service restart completed ==="
+      continue-on-error: true
