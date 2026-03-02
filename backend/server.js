@@ -20,21 +20,20 @@ const PORT = process.env.PORT || 3001;
 
 // 速率限制中间件
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15分钟
-  max: 10, // 每个IP在窗口期内最多10次请求
+  windowMs: 15 * 60 * 1000,
+  max: 10,
   message: { error: '请求过于频繁，请稍后再试' },
   standardHeaders: true,
   legacyHeaders: false,
   skip: (req) => {
-    // 跳过非认证路由
     return !req.url.includes('/api/auth');
   }
 });
 
 // 通用速率限制
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15分钟
-  max: 100, // 每个IP在窗口期内最多100次请求
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   message: { error: 'API请求过于频繁，请稍后再试' },
   standardHeaders: true,
   legacyHeaders: false
@@ -43,14 +42,14 @@ const apiLimiter = rateLimit({
 // 中间件
 app.use(logger);
 app.use(cors({
-  origin: '*', // 在生产环境中，你应该设置具体的前端域名
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(authLimiter); // 应用认证速率限制
-app.use('/api', apiLimiter); // 应用API速率限制
+app.use(authLimiter);
+app.use('/api', apiLimiter);
 
 // 路由
 app.use('/api/auth', userRoutes);

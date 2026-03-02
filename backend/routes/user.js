@@ -6,11 +6,6 @@ const authenticate = require('../middleware/auth');
 const bcrypt = require('bcryptjs');
 const SALT_ROUNDS = 10;
 
-/**
- * @route POST /api/auth/register
- * @description 用户注册
- * @access Public
- */
 router.post('/register', async (req, res) => {
   try {
     const { name, account, password, avatar } = req.body;
@@ -27,11 +22,9 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: '密码不能为空' });
     }
 
-    // 创建用户
     let user = null;
     
     try {
-      // 哈希密码
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
       
       const { data: newUser, error } = await supabase
@@ -57,7 +50,6 @@ router.post('/register', async (req, res) => {
       return res.status(500).json({ error: '注册过程中发生错误: ' + error.message });
     }
 
-    // 生成token
     const token = generateToken({ user_id: user.id });
 
     res.status(201).json({
@@ -76,19 +68,12 @@ router.post('/register', async (req, res) => {
   }
 });
 
-/**
- * @route POST /api/auth/login
- * @description 用户登录
- * @access Public
- */
 router.post('/login', async (req, res) => {
   try {
     const { account, password, guest } = req.body;
     let user = null;
     
-    // 游客登录
     if (guest) {
-      // 创建游客用户
       try {
         const { data: newUser, error } = await supabase
           .from('users')
@@ -104,7 +89,6 @@ router.post('/login', async (req, res) => {
 
         if (error) {
           console.error('创建游客用户失败:', error);
-          // 使用模拟用户数据
           user = {
             id: Date.now().toString(),
             name: '游客',
@@ -116,7 +100,6 @@ router.post('/login', async (req, res) => {
         }
       } catch (error) {
         console.error('创建游客用户错误:', error);
-        // 使用模拟用户数据
         user = {
           id: Date.now().toString(),
           name: '游客',
@@ -125,9 +108,7 @@ router.post('/login', async (req, res) => {
         };
       }
     } else if (account && password) {
-      // 账号密码登录
       try {
-        // 查找用户
         const { data: users, error } = await supabase
           .from('users')
           .select('*')
@@ -135,12 +116,24 @@ router.post('/login', async (req, res) => {
           .limit(1);
 
         if (error || users.length === 0) {
-          // 用户不存在，返回错误
           return res.status(401).json({ error: '账号或密码错误' });
         } else {
-          // 验证密码
           const foundUser = users[0];
-          const isPasswordValid = await bcrypt.compare(password, foundUser.password);
+          let isPasswordValid = false;
+          
+          const isHashedPassword = foundUser.password && (foundUser.password.startsWith('$2a$') || foundUser.password.startsWith('$2b$') || foundUser.password.startsWith('$2y$'));
+          
+          try {
+            if (isHashedPassword) {
+              isPasswordValid = await bcrypt.compare(password, foundUser.password);
+            } else {
+              isPasswordValid = (password === foundUser.password);
+            }
+          } catch (bcryptError) {
+            console.error('Bcrypt error:', bcryptError);
+            return res.status(500).json({ error: '密码验证失败' });
+          }
+          
           if (!isPasswordValid) {
             return res.status(401).json({ error: '账号或密码错误' });
           }
@@ -148,9 +141,7 @@ router.post('/login', async (req, res) => {
         }
       } catch (error) {
         console.error('登录错误:', error);
-        // 使用模拟数据进行验证
         if (account === 'test' && password === 'test') {
-          // 测试账号
           user = {
             id: '1',
             name: '测试用户',
@@ -164,8 +155,6 @@ router.post('/login', async (req, res) => {
         }
       }
     }
-
-    // 生成token
     const token = generateToken({ user_id: user.id });
 
     res.status(200).json({
@@ -184,11 +173,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-/**
- * @route GET /api/users/me
- * @description 获取当前用户信息
- * @access Private
- */
 router.get('/me', authenticate, async (req, res) => {
   try {
     const { user } = req;
@@ -208,11 +192,6 @@ router.get('/me', authenticate, async (req, res) => {
   }
 });
 
-/**
- * @route PUT /api/users/me
- * @description 更新用户信息
- * @access Private
- */
 router.put('/me', authenticate, async (req, res) => {
   try {
     const { user } = req;
@@ -243,7 +222,6 @@ router.put('/me', authenticate, async (req, res) => {
       updatedUser = userData;
     } catch (dbError) {
       console.error('数据库更新失败:', dbError);
-      // 使用模拟数据
       updatedUser = {
         id: user.id,
         name: name || user.name,

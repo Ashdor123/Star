@@ -16,14 +16,21 @@ if (supabaseUrl && supabaseServiceKey && supabaseUrl !== 'https://your-project.s
   console.log('Supabase connected successfully');
 } else {
   console.warn('Supabase configuration not set. Using mock data for development.');
-  // 创建一个模拟的supabase对象，用于开发环境
   supabase = {
     from: () => ({
       select: () => ({ data: [], error: null }),
       insert: () => ({ data: null, error: null }),
       update: () => ({ data: null, error: null }),
       delete: () => ({ data: null, error: null }),
-      eq: () => ({ select: () => ({ data: [], error: null }), single: () => ({ data: null, error: { code: 'PGRST116' } }) }),
+      eq: () => ({ 
+        select: () => ({ 
+          data: [], 
+          error: null, 
+          limit: () => ({ data: [], error: null }) 
+        }), 
+        single: () => ({ data: null, error: { code: 'PGRST116' } }), 
+        limit: () => ({ data: [], error: null }) 
+      }),
       single: () => ({ data: null, error: { code: 'PGRST116' } }),
       order: () => ({ data: [], error: null }),
       limit: () => ({ data: [], error: null })
