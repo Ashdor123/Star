@@ -88,26 +88,10 @@ export const authApi = {
    * @returns 注册结果
    */
   register: async (userData: RegisterData) => {
-    try {
-      return await apiRequest<AuthResponse>('/auth/register', {
-        method: 'POST',
-        body: JSON.stringify(userData),
-      });
-    } catch (error) {
-      console.warn('注册API失败，使用模拟数据', error);
-      // 返回模拟注册结果
-      return {
-        success: true,
-        user: {
-          id: Date.now().toString(),
-          name: userData.name,
-          account: userData.account,
-          avatar: userData.avatar || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg',
-          level: 1
-        },
-        token: 'mock-token-' + Date.now()
-      };
-    }
+    return await apiRequest<AuthResponse>('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+    });
   },
 
   /**
@@ -116,26 +100,10 @@ export const authApi = {
    * @returns 登录结果
    */
   login: async (loginData: LoginData) => {
-    try {
-      return await apiRequest<AuthResponse>('/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(loginData),
-      });
-    } catch (error) {
-      console.warn('登录API失败，使用模拟数据', error);
-      // 返回模拟登录结果
-      return {
-        success: true,
-        user: {
-          id: '1',
-          name: loginData.guest ? '游客' : loginData.account || '测试用户',
-          account: loginData.account,
-          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg',
-          level: 1
-        },
-        token: 'mock-token-' + Date.now()
-      };
-    }
+    return await apiRequest<AuthResponse>('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(loginData),
+    });
   },
 
   /**
@@ -143,25 +111,7 @@ export const authApi = {
    * @returns 用户信息
    */
   getCurrentUser: async () => {
-    try {
-      return await apiRequest<AuthResponse>('/users/me');
-    } catch (error) {
-      console.warn('获取用户信息API失败，使用模拟数据', error);
-      // 返回模拟用户信息
-      const token = localStorage.getItem('token');
-      if (token) {
-        return {
-          success: true,
-          user: {
-            id: '1',
-            name: '游客',
-            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg',
-            level: 1
-          }
-        };
-      }
-      throw new Error('未登录');
-    }
+    return await apiRequest<AuthResponse>('/users/me');
   },
 
   /**
@@ -170,24 +120,10 @@ export const authApi = {
    * @returns 更新结果
    */
   updateUser: async (userData: UpdateUserData) => {
-    try {
-      return await apiRequest<AuthResponse>('/users/me', {
-        method: 'PUT',
-        body: JSON.stringify(userData),
-      });
-    } catch (error) {
-      console.warn('更新用户信息API失败，使用模拟数据', error);
-      // 返回模拟更新结果
-      return {
-        success: true,
-        user: {
-          id: '1',
-          name: userData.name || '游客',
-          avatar: userData.avatar || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg',
-          level: 1
-        }
-      };
-    }
+    return await apiRequest<AuthResponse>('/users/me', {
+      method: 'PUT',
+      body: JSON.stringify(userData),
+    });
   },
 };
 
