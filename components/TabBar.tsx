@@ -1,5 +1,3 @@
-
-
 import { Page } from '../types';
 
 interface TabBarProps {
@@ -17,21 +15,21 @@ const TabBar: React.FC<TabBarProps> = ({ activeTab, onTabChange }) => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 w-full z-50 pointer-events-none">
-      <div className="max-w-md mx-auto relative px-6 pb-6 pointer-events-auto">
-        <div className="bg-white rounded-[2.5rem] shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-gray-100 p-2 flex justify-between items-center h-[5.5rem] px-4">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-transparent">
+      <div className="max-w-md mx-auto px-4 pb-4 pt-2">
+        <div className="bg-white rounded-[2rem] shadow-[0_8px_40px_rgba(0,0,0,0.12)] border border-gray-100 p-2 flex justify-around items-center h-[4.5rem]">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`flex flex-col items-center justify-center w-16 h-full space-y-1 transition-all active:scale-90 ${
-                activeTab === tab.id ? 'text-primary' : 'text-gray-400'
+              className={`flex flex-col items-center justify-center flex-1 h-full space-y-1 transition-all active:scale-90 touch-manipulation ${
+                activeTab === tab.id ? 'text-orange-500' : 'text-gray-400'
               }`}
             >
-              <span className="material-icons-round text-[28px]">
+              <span className="material-icons-round text-[26px]">
                 {tab.icon}
               </span>
-              <span className="text-[11px] font-bold">{tab.label}</span>
+              <span className="text-[10px] font-medium">{tab.label}</span>
             </button>
           ))}
         </div>

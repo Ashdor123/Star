@@ -26,9 +26,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
       });
       
       if (response.success && response.token && response.user) {
-        // 保存token到本地存储
         localStorage.setItem('token', response.token);
-        // 登录成功，调用回调函数并传递用户信息
         onLoginSuccess(response.user);
       } else {
         setError('登录失败，请检查账号和密码');
@@ -51,9 +49,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
       });
       
       if (response.success && response.token && response.user) {
-        // 保存token到本地存储
         localStorage.setItem('token', response.token);
-        // 登录成功，调用回调函数并传递用户信息
         onLoginSuccess(response.user);
       } else {
         setError('登录失败，请重试');
@@ -67,11 +63,11 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-green-50">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-orange-50">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="inline-block p-4 bg-green-100 rounded-2xl mb-4">
-            <span className="material-icons-round text-green-600 text-6xl">sign_language</span>
+          <div className="inline-block p-4 bg-orange-100 rounded-2xl mb-4">
+            <span className="material-icons-round text-orange-500 text-6xl">sign_language</span>
           </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">四星手语</h1>
           <p className="text-gray-500">儿童趣味学习平台</p>
@@ -87,7 +83,6 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
           )}
 
           <div className="space-y-6">
-            {/* 账号密码登录表单 */}
             <div className="space-y-4">
               <div>
                 <div className="relative">
@@ -96,9 +91,9 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
                     value={account}
                     onChange={(e) => setAccount(e.target.value)}
                     placeholder="请输入账号"
-                    className="w-full border border-green-200 rounded-2xl py-4 px-12 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent bg-green-50"
+                    className="w-full border border-orange-200 rounded-2xl py-4 px-12 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent bg-orange-50"
                   />
-                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-green-500">
+                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-orange-400">
                     <span className="material-icons-round">account_box</span>
                   </div>
                 </div>
@@ -111,9 +106,9 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="请输入密码"
-                    className="w-full border border-green-200 rounded-2xl py-4 px-12 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent bg-green-50"
+                    className="w-full border border-orange-200 rounded-2xl py-4 px-12 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent bg-orange-50"
                   />
-                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-green-500">
+                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-orange-400">
                     <span className="material-icons-round">lock</span>
                   </div>
                 </div>
@@ -122,7 +117,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
               <button
                 onClick={handleLogin}
                 disabled={isLoading}
-                className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-2xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-2xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
@@ -150,11 +145,11 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
             <button
               onClick={handleGuestLogin}
               disabled={isLoading}
-              className="w-full bg-white border-2 border-green-500 text-green-600 font-bold py-4 px-6 rounded-2xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed hover:bg-green-50"
+              className="w-full bg-white border-2 border-orange-500 text-orange-600 font-bold py-4 px-6 rounded-2xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed hover:bg-orange-50"
             >
               {isLoading ? (
                 <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-green-500"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-orange-500"></div>
                   <span>登录中...</span>
                 </>
               ) : (
@@ -187,8 +182,8 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
           <div className="mt-8 text-center text-sm text-gray-500">
             <p>登录即表示您同意我们的</p>
             <div className="flex justify-center gap-4 mt-1">
-              <a href="#" className="text-green-600 hover:underline">服务条款</a>
-              <a href="#" className="text-green-600 hover:underline">隐私政策</a>
+              <a href="#" className="text-orange-600 hover:underline">服务条款</a>
+              <a href="#" className="text-orange-600 hover:underline">隐私政策</a>
             </div>
           </div>
         </div>
