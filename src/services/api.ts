@@ -5,6 +5,26 @@ interface ApiRequestOptions {
   method?: string;
   headers?: Record<string, string>;
   body?: string;
+  timeout?: number;
+}
+
+const DEFAULT_TIMEOUT = 15000;
+
+async function fetchWithTimeout(url: string, options: RequestInit & { timeout?: number } = {}): Promise<Response> {
+  const { timeout = DEFAULT_TIMEOUT, ...fetchOptions } = options;
+  
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  
+  try {
+    const response = await fetch(url, {
+      ...fetchOptions,
+      signal: controller.signal,
+    });
+    return response;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 /**
@@ -21,16 +41,16 @@ async function apiRequest<T>(endpoint: string, options: ApiRequestOptions = {}):
     ...options.headers,
   };
 
-  // 添加认证token
   const token = localStorage.getItem('token');
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithTimeout(url, {
       ...options,
       headers,
+      timeout: options.timeout || DEFAULT_TIMEOUT,
     });
 
     if (!response.ok) {
@@ -40,6 +60,14 @@ async function apiRequest<T>(endpoint: string, options: ApiRequestOptions = {}):
 
     return await response.json();
   } catch (error) {
+    if (error instanceof Error) {
+      if (error.name === 'AbortError') {
+        throw new Error('请求超时，请检查网络连接');
+      }
+      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+        throw new Error('网络连接失败，请检查网络设置');
+      }
+    }
     console.error('API请求错误:', error);
     throw error;
   }

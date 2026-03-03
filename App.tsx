@@ -221,12 +221,18 @@ const App: React.FC = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto hide-scrollbar relative z-10 pb-24">
-        <div className="transition-opacity duration-300 animate-in fade-in">
-          {renderPage()}
-        </div>
+        {isLoading ? (
+          <div className="flex items-center justify-center h-screen">
+            <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <div className="transition-opacity duration-300">
+            {renderPage()}
+          </div>
+        )}
       </div>
 
-      {!hideTabBar && (
+      {!hideTabBar && !isLoading && (
         <TabBar activeTab={currentPage} onTabChange={(page) => {
           setCurrentPage(page);
           if (page === Page.LEARNING) setLearningTab('core');

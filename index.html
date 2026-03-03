@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
     <title>四星手语</title>
     <meta name="description" content="专为儿童设计的手语学习平台，通过趣味互动方式学习手语" />
     <meta name="theme-color" content="#F97316" />
@@ -50,10 +50,31 @@
         };
     </script>
     <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            touch-action: manipulation;
+        }
         body {
             font-family: 'Noto Sans SC', sans-serif;
             background-color: #FFF7ED;
             -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overscroll-behavior: none;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+        }
+        html {
+            height: -webkit-fill-available;
+        }
+        #root {
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
         }
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
@@ -89,6 +110,13 @@
                 padding-bottom: env(safe-area-inset-bottom);
             }
         }
+        @media (prefers-reduced-motion: reduce) {
+            .animate-bounce-slow,
+            .floating,
+            .animate-spin {
+                animation: none;
+            }
+        }
     </style>
 <script type="importmap">
 {
@@ -111,7 +139,7 @@
           console.log('Service Worker注册成功:', registration.scope);
         })
         .catch((error) => {
-          console.error('Service Worker注册失败:', error);
+          console.log('Service Worker注册跳过:', error);
         });
     });
   }

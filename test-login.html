@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+        button { padding: 10px 20px; margin: 5px; }
+        .result { margin: 10px 0; padding: 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>登录功能测试</h1>
+    
+    <div class="test-section">
+        <h2>游客登录测试</h2>
+        <button onclick="testGuestLogin()">测试游客登录</button>
+        <div id="guestResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>账号密码登录测试</h2>
+        <button onclick="testPasswordLogin()">测试账号密码登录</button>
+        <div id="passwordResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>健康检查</h2>
+        <button onclick="testHealthCheck()">测试健康检查</button>
+        <div id="healthResult" class="result"></div>
+    </div>
+
+    <script>
+        async function testGuestLogin() {
+            const resultDiv = document.getElementById('guestResult');
+            resultDiv.innerHTML = '测试中...';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ guest: true })
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `状态码: ${response.status}<br>响应: ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                resultDiv.innerHTML = `错误: ${error.message}`;
+            }
+        }
+        
+        async function testPasswordLogin() {
+            const resultDiv = document.getElementById('passwordResult');
+            resultDiv.innerHTML = '测试中...';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ account: 'test', password: 'test' })
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `状态码: ${response.status}<br>响应: ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                resultDiv.innerHTML = `错误: ${error.message}`;
+            }
+        }
+        
+        async function testHealthCheck() {
+            const resultDiv = document.getElementById('healthResult');
+            resultDiv.innerHTML = '测试中...';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/health');
+                const data = await response.json();
+                resultDiv.innerHTML = `状态码: ${response.status}<br>响应: ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                resultDiv.innerHTML = `错误: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
