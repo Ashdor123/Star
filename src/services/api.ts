@@ -73,16 +73,9 @@ async function apiRequest<T>(endpoint: string, options: ApiRequestOptions = {}):
   }
 }
 
-// 类型定义
-export interface User {
-  id: string;
-  name: string;
-  account?: string;
-  password?: string;
-  avatar: string;
-  level: number;
-}
+import { Lesson, Step, User } from '../../types';
 
+// 认证相关类型（扩展User类型）
 interface AuthResponse {
   success: boolean;
   user?: User;
@@ -154,39 +147,6 @@ export const authApi = {
     });
   },
 };
-
-// 课程相关类型
-interface Lesson {
-  id: string;
-  title: string;
-  pinyin?: string;
-  thumbnail?: string;
-  tip?: string;
-  created_at?: string;
-}
-
-interface Step {
-  id: number;
-  lesson_id: string;
-  title: string;
-  description?: string;
-  image?: string;
-  order?: number;
-}
-
-interface LearningProgress {
-  id: string;
-  user_id: string;
-  lesson_id: string;
-  completed: boolean;
-  progress: number;
-  last_accessed: string;
-}
-
-interface ProgressData {
-  completed?: boolean;
-  progress?: number;
-}
 
 // 课程相关API
 export const lessonApi = {
