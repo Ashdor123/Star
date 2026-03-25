@@ -124,19 +124,17 @@ jobs:
             # 检查 .env 文件是否存在
             if [ ! -f ".env" ]; then
               echo "警告: .env 文件不存在，创建默认配置..."
-              cat > .env << 'EOF'
-# Supabase配置
-SUPABASE_URL=https://xhzqhuynpvtrcwpdeipn.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=sb_publishable_sbS8ljbGYFxoM9jcKdkMKA_DIPco2BE
-
-# JWT配置
-JWT_SECRET=four-star-sign-language-secret-key-2026
-JWT_EXPIRES_IN=7d
-
-# 服务器配置
-PORT=3001
-NODE_ENV=production
-EOF
+              echo "# Supabase配置" > .env
+              echo "SUPABASE_URL=https://xhzqhuynpvtrcwpdeipn.supabase.co" >> .env
+              echo "SUPABASE_SERVICE_ROLE_KEY=sb_publishable_sbS8ljbGYFxoM9jcKdkMKA_DIPco2BE" >> .env
+              echo "" >> .env
+              echo "# JWT配置" >> .env
+              echo "JWT_SECRET=four-star-sign-language-secret-key-2026" >> .env
+              echo "JWT_EXPIRES_IN=7d" >> .env
+              echo "" >> .env
+              echo "# 服务器配置" >> .env
+              echo "PORT=3001" >> .env
+              echo "NODE_ENV=production" >> .env
               echo ".env 文件已创建"
             fi
             # 检查package.json是否存在
