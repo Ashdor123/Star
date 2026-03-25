@@ -121,40 +121,56 @@ jobs:
             cd ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/www/wwwroot/star-sign-language-backend' }}
             # 列出目录内容
             ls -la
+            # 检查 .env 文件是否存在
+            if [ ! -f ".env" ]; then
+              echo "警告: .env 文件不存在，创建默认配置..."
+              cat > .env << 'EOF'
+# Supabase配置
+SUPABASE_URL=https://xhzqhuynpvtrcwpdeipn.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=sb_publishable_sbS8ljbGYFxoM9jcKdkMKA_DIPco2BE
+
+# JWT配置
+JWT_SECRET=four-star-sign-language-secret-key-2026
+JWT_EXPIRES_IN=7d
+
+# 服务器配置
+PORT=3001
+NODE_ENV=production
+EOF
+              echo ".env 文件已创建"
+            fi
             # 检查package.json是否存在
             if [ -f "package.json" ]; then
               echo "package.json found, installing dependencies..."
-              npm install || echo "Dependencies installation failed, continuing..."
+              npm install
             else
-              echo "package.json not found, skipping dependency installation"
+              echo "package.json not found!"
+              exit 1
             fi
-            # 检查server.js是否存在
-            if [ -f "server.js" ]; then
-              echo "server.js found, starting service..."
+            # 检查start.sh是否存在并赋予执行权限
+            if [ -f "start.sh" ]; then
+              chmod +x start.sh
+              echo "使用 start.sh 启动服务..."
+              ./start.sh
+            elif [ -f "server.js" ]; then
+              echo "使用 server.js 启动服务..."
               # 停止旧服务
-              pm2 stop star-sign-language-backend || echo "No existing service to stop"
-              # 清理旧服务
-              pm2 delete star-sign-language-backend || echo "No existing service to delete"
+              pm2 stop star-sign-language-backend 2>/dev/null || true
+              pm2 delete star-sign-language-backend 2>/dev/null || true
               # 启动新服务
               pm2 start server.js --name star-sign-language-backend
-              # 等待服务启动
-              sleep 5
-              # 检查服务状态
-              pm2 status
-              # 保存服务配置
               pm2 save
-              # 查看服务日志
-              pm2 logs star-sign-language-backend --lines 20
+              sleep 3
+              pm2 status
             else
-              echo "server.js not found, service start skipped"
+              echo "server.js not found!"
+              exit 1
             fi
           else
-            echo "Directory does not exist, creating..."
-            mkdir -p ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/www/wwwroot/star-sign-language-backend' }}
-            echo "Directory created"
+            echo "Directory does not exist!"
+            exit 1
           fi
           echo "=== Backend service restart completed ==="
-      continue-on-error: true
 
     # 检查后端服务健康状态
     - name: Check backend service health
