@@ -15,9 +15,65 @@ const AVATARS = [
   'https://lh3.googleusercontent.com/aida-public/AB6AXuD7e5R8u2xiDc6tD6-xtIp7Zx3-ccq4qflGPMavW5bkzSf4mlt0jd4tI_OcGdIqp_uS1KwQrwm4HqfJvD5tV1N91bpeZ54HQmHKXA8sjijCUjUtZr_y9Ai4WOQa5249ULNLT6QLnasyxxJr39rSJ5gMmRMKUChD0xdj2g86gqQmp7Sbj9FReloHvPS-eLN2AyAOHr17cikoXpZ1cmHES8mVLHrLsGXIJ2n95CquLq_Am-RnNq4P8DWcIkmadgLiF3itBSN2diPaPKo',
 ];
 
+// 上传头像函数
+const uploadAvatar = async (file: File): Promise<string> => {
+  const formData = new FormData();
+  formData.append('image', file);
+  
+  try {
+    const response = await fetch('/api/upload/lesson', {
+      method: 'POST',
+      body: formData
+    });
+    
+    if (!response.ok) {
+      throw new Error('上传失败');
+    }
+    
+    const data = await response.json();
+    return data.imageUrl;
+  } catch (error) {
+    console.error('上传头像失败:', error);
+    throw error;
+  }
+};
+
 const EditProfile: React.FC<EditProfileProps> = ({ userName, userAvatar, onSave, onBack }) => {
   const [name, setName] = useState(userName);
   const [avatar, setAvatar] = useState(userAvatar);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  // 处理文件选择
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // 验证文件类型
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setUploadError('只支持图片文件 (JPEG, PNG, GIF, WebP)');
+      return;
+    }
+
+    // 验证文件大小
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('文件大小不能超过 5MB');
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadError(null);
+
+    try {
+      const imageUrl = await uploadAvatar(file);
+      setAvatar(imageUrl);
+    } catch (error) {
+      setUploadError('上传失败，请重试');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -74,7 +130,37 @@ const EditProfile: React.FC<EditProfileProps> = ({ userName, userAvatar, onSave,
                 </div>
               </button>
             ))}
+            {/* 自定义上传按钮 */}
+            <button 
+              onClick={() => document.getElementById('avatar-upload')?.click()}
+              className="aspect-square rounded-[2rem] p-1.5 bg-gray-100 flex items-center justify-center transition-all transform active:scale-95 hover:bg-gray-200"
+            >
+              <div className="w-full h-full bg-white rounded-[1.8rem] flex flex-col items-center justify-center p-4 text-gray-400">
+                <span className="material-icons-round text-3xl mb-2">add_photo_alternate</span>
+                <span className="text-xs font-medium">上传头像</span>
+              </div>
+            </button>
+            {/* 隐藏的文件输入 */}
+            <input
+              id="avatar-upload"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+              disabled={isUploading}
+            />
           </div>
+          {/* 上传状态提示 */}
+          {isUploading && (
+            <div className="text-center text-sm text-gray-500">
+              上传中...
+            </div>
+          )}
+          {uploadError && (
+            <div className="text-center text-sm text-red-500">
+              {uploadError}
+            </div>
+          )}
         </div>
 
         <div className="pt-6 w-full">

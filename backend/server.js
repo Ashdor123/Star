@@ -15,6 +15,7 @@ const lessonRoutes = require('./routes/lesson');
 const progressRoutes = require('./routes/progress');
 const batchRoutes = require('./routes/batch');
 const imageRoutes = require('./routes/image');
+const uploadRoutes = require('./routes/upload');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -61,6 +62,7 @@ app.use('/api/lessons', lessonRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/batch', batchRoutes);
 app.use('/api/images', imageRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // 健康检查
 app.get('/api/health', (req, res) => {
