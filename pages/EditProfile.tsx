@@ -19,9 +19,11 @@ const AVATARS = [
 const uploadAvatar = async (file: File): Promise<string> => {
   const formData = new FormData();
   formData.append('image', file);
+  // 传递用户ID，这里可以从登录状态获取
+  const userId = localStorage.getItem('userId') || 'guest';
   
   try {
-    const response = await fetch('/api/upload/lesson', {
+    const response = await fetch(`/api/upload/avatar?userId=${userId}`, {
       method: 'POST',
       body: formData
     });

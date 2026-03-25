@@ -152,6 +152,14 @@ jobs:
               ./start.sh
             elif [ -f "server.js" ]; then
               echo "使用 server.js 启动服务..."
+              # 创建必要的目录结构
+              echo "创建上传目录..."
+              mkdir -p uploads/lessons uploads/steps uploads/avatars
+              chmod 755 uploads
+              chmod 755 uploads/lessons
+              chmod 755 uploads/steps
+              chmod 755 uploads/avatars
+              ls -la uploads
               # 停止旧服务
               pm2 stop star-sign-language-backend 2>/dev/null || true
               pm2 delete star-sign-language-backend 2>/dev/null || true
