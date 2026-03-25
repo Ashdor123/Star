@@ -64,6 +64,21 @@ const EditProfile: React.FC<EditProfileProps> = ({ userName, userAvatar, onSave,
       return;
     }
 
+    // 验证图片尺寸
+    const imageDimensions = await new Promise<{ width: number; height: number }>((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve({ width: img.width, height: img.height });
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+
+    const maxWidth = 2000;
+    const maxHeight = 2000;
+    if (imageDimensions.width > maxWidth || imageDimensions.height > maxHeight) {
+      setUploadError(`图片尺寸不能超过 ${maxWidth}x${maxHeight} 像素`);
+      return;
+    }
+
     setIsUploading(true);
     setUploadError(null);
 
