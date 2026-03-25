@@ -32,20 +32,20 @@ router.get('/', async (req, res) => {
           id: 'friend',
           title: '朋友',
           pinyin: 'Péng Yǒu',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDF4nCOhtIRD-9wLm0eZcacYy1GeNboSLCJZ8qJNs_edxyoM5CV_1Te3bIvjggDaCC5Qeu7hljg95OHU_BE6En6VeJUkycJR8wB4nuTtlBV3q1bK-0bvS-QbDtafwu64Vqcu308iBAeZaueEctBxKJ_SHJ4BG6Hsn5-cvNNtrnKE0BLG3ukmLSLBQI_3qRLHCtcPwFRE9n79SCIuYd53zApSaJr5asG8ip2XS4wkaQcPag1tQU5Hec5OOPuf__nWX0W8yVVjj3ueDQ',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“朋友”时，双手食指钩在一起，象征着紧密的联结。',
           steps: [
             {
               id: 1,
               title: '食指相对',
               description: '双手食指伸出，指尖相对。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQbwAdqFwtM-sOnRWRQPZ4IqDPFq1em0bCRSVdkLfKuBY-SdVyystyvl9adxsKUzbwfrkJXCJoEtXn_DxXeFgnyK7CY4SaikuZ0XFFqjkMYP-iXLZVDJY_w-eZ0Fekjn0GPDKwbpJhwReJpjSnDulXQeACIG7_wMCmKLFGuvdLn6oEkdhBlRcA7LEm4tBfGyxkR295ny-eXsYaDzvc8FjYfyyiiY8I9NRGqlL9kDeSb_dFuvM7YFgUa76uxan5UgTlCzRrwK8KSx0'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '相钩结合',
               description: '左右食指互相钩在一起，轻轻拉动。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDU0ZIIUAtcPmeIdpgaaqI8K5Z5TqIm23Ot428zOcJfdvp3iWek3zXHVEJnV5F0_yqeOuF1ebpmAqBmgjXrBRj0wg5GWopkf6F-Ate36u4QHMT8d-jiaOSOaPBM3YtJWj1GAq79GsSJ4iWumFsuOkMk6xqtyjycKPbas51GwjlX64wM6SucwGfcjSIX4USk_wHv5EvMNNYfGKbWRBZGA3KcpJ-T1DefS4g94519woWNdUvrYi8Fa_KdwOltE-iiY3IJD5m7kYAOtJ8'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -53,20 +53,20 @@ router.get('/', async (req, res) => {
           id: 'hello',
           title: '你好',
           pinyin: 'Nǐ Hǎo',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '做“你好”这个动作时，记得要保持微笑哦！',
           steps: [
             {
               id: 1,
               title: '举起手掌',
               description: '张开你的手掌，举到额头附近，就像敬礼一样。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQbwAdqFwtM-sOnRWRQPZ4IqDPFq1em0bCRSVdkLfKuBY-SdVyystyvl9adxsKUzbwfrkJXCJoEtXn_DxXeFgnyK7CY4SaikuZ0XFFqjkMYP-iXLZVDJY_w-eZ0Fekjn0GPDKwbpJhwReJpjSnDulXQeACIG7_wMCmKLFGuvdLn6oEkdhBlRcA7LEm4tBfGyxkR295ny-eXsYaDzvc8FjYfyyiiY8I9NRGqlL9kDeSb_dFuvM7YFgUa76uxan5UgTlCzRrwK8KSx0'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '向前移动',
               description: '手掌稍微向前并在头部前方画一个小弧线。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDU0ZIIUAtcPmeIdpgaaqI8K5Z5TqIm23Ot428zOcJfdvp3iWek3zXHVEJnV5F0_yqeOuF1ebpmAqBmgjXrBRj0wg5GWopkf6F-Ate36u4QHMT8d-jiaOSOaPBM3YtJWj1GAq79GsSJ4iWumFsuOkMk6xqtyjycKPbas51GwjlX64wM6SucwGfcjSIX4USk_wHv5EvMNNYfGKbWRBZGA3KcpJ-T1DefS4g94519woWNdUvrYi8Fa_KdwOltE-iiY3IJD5m7kYAOtJ8'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -74,20 +74,20 @@ router.get('/', async (req, res) => {
           id: 'thank',
           title: '谢谢',
           pinyin: 'Xiè Xiè',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“谢谢”时，双手合十，轻轻点头，表达感激之情。',
           steps: [
             {
               id: 1,
               title: '双手合十',
               description: '双手掌心相对，手指并拢，合十于胸前。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '轻轻点头',
               description: '保持双手合十的姿势，轻轻点头表示感谢。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -95,20 +95,20 @@ router.get('/', async (req, res) => {
           id: 'goodbye',
           title: '再见',
           pinyin: 'Zài Jiàn',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“再见”时，挥手的动作要轻盈，面带微笑。',
           steps: [
             {
               id: 1,
               title: '举起手臂',
               description: '举起一只手臂，手掌张开，手指自然伸直。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '左右摆动',
               description: '手臂轻轻左右摆动，手掌向外，表示再见。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -116,20 +116,20 @@ router.get('/', async (req, res) => {
           id: 'sorry',
           title: '对不起',
           pinyin: 'Duì Bù Qǐ',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDF4nCOhtIRD-9wLm0eZcacYy1GeNboSLCJZ8qJNs_edxyoM5CV_1Te3bIvjggDaCC5Qeu7hljg95OHU_BE6En6VeJUkycJR8wB4nuTtlBV3q1bK-0bvS-QbDtafwu64Vqcu308iBAeZaueEctBxKJ_SHJ4BG6Hsn5-cvNNtrnKE0BLG3ukmLSLBQI_3qRLHCtcPwFRE9n79SCIuYd53zApSaJr5asG8ip2XS4wkaQcPag1tQU5Hec5OOPuf__nWX0W8yVVjj3ueDQ',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“对不起”时，表情要诚恳，动作要轻柔。',
           steps: [
             {
               id: 1,
               title: '双手交叉',
               description: '双手掌心向下，交叉放在胸前。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDF4nCOhtIRD-9wLm0eZcacYy1GeNboSLCJZ8qJNs_edxyoM5CV_1Te3bIvjggDaCC5Qeu7hljg95OHU_BE6En6VeJUkycJR8wB4nuTtlBV3q1bK-0bvS-QbDtafwu64Vqcu308iBAeZaueEctBxKJ_SHJ4BG6Hsn5-cvNNtrnKE0BLG3ukmLSLBQI_3qRLHCtcPwFRE9n79SCIuYd53zApSaJr5asG8ip2XS4wkaQcPag1tQU5Hec5OOPuf__nWX0W8yVVjj3ueDQ'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '轻轻点头',
               description: '保持双手交叉的姿势，轻轻点头表示歉意。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDF4nCOhtIRD-9wLm0eZcacYy1GeNboSLCJZ8qJNs_edxyoM5CV_1Te3bIvjggDaCC5Qeu7hljg95OHU_BE6En6VeJUkycJR8wB4nuTtlBV3q1bK-0bvS-QbDtafwu64Vqcu308iBAeZaueEctBxKJ_SHJ4BG6Hsn5-cvNNtrnKE0BLG3ukmLSLBQI_3qRLHCtcPwFRE9n79SCIuYd53zApSaJr5asG8ip2XS4wkaQcPag1tQU5Hec5OOPuf__nWX0W8yVVjj3ueDQ'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -137,20 +137,20 @@ router.get('/', async (req, res) => {
           id: 'please',
           title: '请',
           pinyin: 'Qǐng',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBKIX2OmDCFAsYZPJakpCWjAx4bV0_jt7FNLY4P8_7hKMzJUv1tvxi26PDFKeags8OXhJir2HiQ24ckz8e12k4UsUVz2LkTHDPVg-dV4RBBeJ-M8omakJOFH8bhXrVY_SLMbcEVeOhds1RaPkoMWf9En6PUTluqAR95XogJfu9dZ_wZikKEW7LnGo6Xc3gIl5h0vWi-8EfDVM0ULaTQOQz2RZUkZAz5Gt5P9An3YyPNel3ni8RiVUHzipK1YWH7K3ZHhm5odFt6WJA',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“请”时，手势要温和，体现礼貌和尊重。',
           steps: [
             {
               id: 1,
               title: '手掌向上',
               description: '一只手手掌向上，手指并拢，轻轻抬起。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBKIX2OmDCFAsYZPJakpCWjAx4bV0_jt7FNLY4P8_7hKMzJUv1tvxi26PDFKeags8OXhJir2HiQ24ckz8e12k4UsUVz2LkTHDPVg-dV4RBBeJ-M8omakJOFH8bhXrVY_SLMbcEVeOhds1RaPkoMWf9En6PUTluqAR95XogJfu9dZ_wZikKEW7LnGo6Xc3gIl5h0vWi-8EfDVM0ULaTQOQz2RZUkZAz5Gt5P9An3YyPNel3ni8RiVUHzipK1YWH7K3ZHhm5odFt6WJA'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '微微摆动',
               description: '手掌微微向内侧摆动，表示邀请或请求。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBKIX2OmDCFAsYZPJakpCWjAx4bV0_jt7FNLY4P8_7hKMzJUv1tvxi26PDFKeags8OXhJir2HiQ24ckz8e12k4UsUVz2LkTHDPVg-dV4RBBeJ-M8omakJOFH8bhXrVY_SLMbcEVeOhds1RaPkoMWf9En6PUTluqAR95XogJfu9dZ_wZikKEW7LnGo6Xc3gIl5h0vWi-8EfDVM0ULaTQOQz2RZUkZAz5Gt5P9An3YyPNel3ni8RiVUHzipK1YWH7K3ZHhm5odFt6WJA'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -158,20 +158,20 @@ router.get('/', async (req, res) => {
           id: 'love',
           title: '我爱你',
           pinyin: 'Wǒ Ài Nǐ',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7e5R8u2xiDc6tD6-xtIp7Zx3-ccq4qflGPMavW5bkzSf4mlt0jd4tI_OcGdIqp_uS1KwQrwm4HqfJvD5tV1N91bpeZ54HQmHKXA8sjijCUjUtZr_y9Ai4WOQa5249ULNLT6QLnasyxxJr39rSJ5gMmRMKUChD0xdj2g86gqQmp7Sbj9FReloHvPS-eLN2AyAOHr17cikoXpZ1cmHES8mVLHrLsGXIJ2n95CquLq_Am-RnNq4P8DWcIkmadgLiF3itBSN2diPaPKo',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“我爱你”时，手势要充满感情，用心传达爱意。',
           steps: [
             {
               id: 1,
               title: '伸出手指',
               description: '一只手伸出拇指、食指和小指，中指和无名指弯曲。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7e5R8u2xiDc6tD6-xtIp7Zx3-ccq4qflGPMavW5bkzSf4mlt0jd4tI_OcGdIqp_uS1KwQrwm4HqfJvD5tV1N91bpeZ54HQmHKXA8sjijCUjUtZr_y9Ai4WOQa5249ULNLT6QLnasyxxJr39rSJ5gMmRMKUChD0xdj2g86gqQmp7Sbj9FReloHvPS-eLN2AyAOHr17cikoXpZ1cmHES8mVLHrLsGXIJ2n95CquLq_Am-RnNq4P8DWcIkmadgLiF3itBSN2diPaPKo'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '放在胸前',
               description: '将手势放在胸前，轻轻晃动，表示我爱你。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7e5R8u2xiDc6tD6-xtIp7Zx3-ccq4qflGPMavW5bkzSf4mlt0jd4tI_OcGdIqp_uS1KwQrwm4HqfJvD5tV1N91bpeZ54HQmHKXA8sjijCUjUtZr_y9Ai4WOQa5249ULNLT6QLnasyxxJr39rSJ5gMmRMKUChD0xdj2g86gqQmp7Sbj9FReloHvPS-eLN2AyAOHr17cikoXpZ1cmHES8mVLHrLsGXIJ2n95CquLq_Am-RnNq4P8DWcIkmadgLiF3itBSN2diPaPKo'
+              image: '/api/images/default/step'
             }
           ]
         }
@@ -236,20 +236,20 @@ router.get('/:id', async (req, res) => {
           id: 'friend',
           title: '朋友',
           pinyin: 'Péng Yǒu',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDF4nCOhtIRD-9wLm0eZcacYy1GeNboSLCJZ8qJNs_edxyoM5CV_1Te3bIvjggDaCC5Qeu7hljg95OHU_BE6En6VeJUkycJR8wB4nuTtlBV3q1bK-0bvS-QbDtafwu64Vqcu308iBAeZaueEctBxKJ_SHJ4BG6Hsn5-cvNNtrnKE0BLG3ukmLSLBQI_3qRLHCtcPwFRE9n79SCIuYd53zApSaJr5asG8ip2XS4wkaQcPag1tQU5Hec5OOPuf__nWX0W8yVVjj3ueDQ',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“朋友”时，双手食指钩在一起，象征着紧密的联结。',
           steps: [
             {
               id: 1,
               title: '食指相对',
               description: '双手食指伸出，指尖相对。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQbwAdqFwtM-sOnRWRQPZ4IqDPFq1em0bCRSVdkLfKuBY-SdVyystyvl9adxsKUzbwfrkJXCJoEtXn_DxXeFgnyK7CY4SaikuZ0XFFqjkMYP-iXLZVDJY_w-eZ0Fekjn0GPDKwbpJhwReJpjSnDulXQeACIG7_wMCmKLFGuvdLn6oEkdhBlRcA7LEm4tBfGyxkR295ny-eXsYaDzvc8FjYfyyiiY8I9NRGqlL9kDeSb_dFuvM7YFgUa76uxan5UgTlCzRrwK8KSx0'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '相钩结合',
               description: '左右食指互相钩在一起，轻轻拉动。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDU0ZIIUAtcPmeIdpgaaqI8K5Z5TqIm23Ot428zOcJfdvp3iWek3zXHVEJnV5F0_yqeOuF1ebpmAqBmgjXrBRj0wg5GWopkf6F-Ate36u4QHMT8d-jiaOSOaPBM3YtJWj1GAq79GsSJ4iWumFsuOkMk6xqtyjycKPbas51GwjlX64wM6SucwGfcjSIX4USk_wHv5EvMNNYfGKbWRBZGA3KcpJ-T1DefS4g94519woWNdUvrYi8Fa_KdwOltE-iiY3IJD5m7kYAOtJ8'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -257,20 +257,20 @@ router.get('/:id', async (req, res) => {
           id: 'hello',
           title: '你好',
           pinyin: 'Nǐ Hǎo',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '做“你好”这个动作时，记得要保持微笑哦！',
           steps: [
             {
               id: 1,
               title: '举起手掌',
               description: '张开你的手掌，举到额头附近，就像敬礼一样。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQbwAdqFwtM-sOnRWRQPZ4IqDPFq1em0bCRSVdkLfKuBY-SdVyystyvl9adxsKUzbwfrkJXCJoEtXn_DxXeFgnyK7CY4SaikuZ0XFFqjkMYP-iXLZVDJY_w-eZ0Fekjn0GPDKwbpJhwReJpjSnDulXQeACIG7_wMCmKLFGuvdLn6oEkdhBlRcA7LEm4tBfGyxkR295ny-eXsYaDzvc8FjYfyyiiY8I9NRGqlL9kDeSb_dFuvM7YFgUa76uxan5UgTlCzRrwK8KSx0'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '向前移动',
               description: '手掌稍微向前并在头部前方画一个小弧线。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDU0ZIIUAtcPmeIdpgaaqI8K5Z5TqIm23Ot428zOcJfdvp3iWek3zXHVEJnV5F0_yqeOuF1ebpmAqBmgjXrBRj0wg5GWopkf6F-Ate36u4QHMT8d-jiaOSOaPBM3YtJWj1GAq79GsSJ4iWumFsuOkMk6xqtyjycKPbas51GwjlX64wM6SucwGfcjSIX4USk_wHv5EvMNNYfGKbWRBZGA3KcpJ-T1DefS4g94519woWNdUvrYi8Fa_KdwOltE-iiY3IJD5m7kYAOtJ8'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -278,20 +278,20 @@ router.get('/:id', async (req, res) => {
           id: 'thank',
           title: '谢谢',
           pinyin: 'Xiè Xiè',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“谢谢”时，双手合十，轻轻点头，表达感激之情。',
           steps: [
             {
               id: 1,
               title: '双手合十',
               description: '双手掌心相对，手指并拢，合十于胸前。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '轻轻点头',
               description: '保持双手合十的姿势，轻轻点头表示感谢。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -299,20 +299,20 @@ router.get('/:id', async (req, res) => {
           id: 'goodbye',
           title: '再见',
           pinyin: 'Zài Jiàn',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“再见”时，挥手的动作要轻盈，面带微笑。',
           steps: [
             {
               id: 1,
               title: '举起手臂',
               description: '举起一只手臂，手掌张开，手指自然伸直。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '左右摆动',
               description: '手臂轻轻左右摆动，手掌向外，表示再见。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -320,20 +320,20 @@ router.get('/:id', async (req, res) => {
           id: 'sorry',
           title: '对不起',
           pinyin: 'Duì Bù Qǐ',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDF4nCOhtIRD-9wLm0eZcacYy1GeNboSLCJZ8qJNs_edxyoM5CV_1Te3bIvjggDaCC5Qeu7hljg95OHU_BE6En6VeJUkycJR8wB4nuTtlBV3q1bK-0bvS-QbDtafwu64Vqcu308iBAeZaueEctBxKJ_SHJ4BG6Hsn5-cvNNtrnKE0BLG3ukmLSLBQI_3qRLHCtcPwFRE9n79SCIuYd53zApSaJr5asG8ip2XS4wkaQcPag1tQU5Hec5OOPuf__nWX0W8yVVjj3ueDQ',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“对不起”时，表情要诚恳，动作要轻柔。',
           steps: [
             {
               id: 1,
               title: '双手交叉',
               description: '双手掌心向下，交叉放在胸前。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDF4nCOhtIRD-9wLm0eZcacYy1GeNboSLCJZ8qJNs_edxyoM5CV_1Te3bIvjggDaCC5Qeu7hljg95OHU_BE6En6VeJUkycJR8wB4nuTtlBV3q1bK-0bvS-QbDtafwu64Vqcu308iBAeZaueEctBxKJ_SHJ4BG6Hsn5-cvNNtrnKE0BLG3ukmLSLBQI_3qRLHCtcPwFRE9n79SCIuYd53zApSaJr5asG8ip2XS4wkaQcPag1tQU5Hec5OOPuf__nWX0W8yVVjj3ueDQ'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '轻轻点头',
               description: '保持双手交叉的姿势，轻轻点头表示歉意。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDF4nCOhtIRD-9wLm0eZcacYy1GeNboSLCJZ8qJNs_edxyoM5CV_1Te3bIvjggDaCC5Qeu7hljg95OHU_BE6En6VeJUkycJR8wB4nuTtlBV3q1bK-0bvS-QbDtafwu64Vqcu308iBAeZaueEctBxKJ_SHJ4BG6Hsn5-cvNNtrnKE0BLG3ukmLSLBQI_3qRLHCtcPwFRE9n79SCIuYd53zApSaJr5asG8ip2XS4wkaQcPag1tQU5Hec5OOPuf__nWX0W8yVVjj3ueDQ'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -341,20 +341,20 @@ router.get('/:id', async (req, res) => {
           id: 'please',
           title: '请',
           pinyin: 'Qǐng',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBKIX2OmDCFAsYZPJakpCWjAx4bV0_jt7FNLY4P8_7hKMzJUv1tvxi26PDFKeags8OXhJir2HiQ24ckz8e12k4UsUVz2LkTHDPVg-dV4RBBeJ-M8omakJOFH8bhXrVY_SLMbcEVeOhds1RaPkoMWf9En6PUTluqAR95XogJfu9dZ_wZikKEW7LnGo6Xc3gIl5h0vWi-8EfDVM0ULaTQOQz2RZUkZAz5Gt5P9An3YyPNel3ni8RiVUHzipK1YWH7K3ZHhm5odFt6WJA',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“请”时，手势要温和，体现礼貌和尊重。',
           steps: [
             {
               id: 1,
               title: '手掌向上',
               description: '一只手手掌向上，手指并拢，轻轻抬起。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBKIX2OmDCFAsYZPJakpCWjAx4bV0_jt7FNLY4P8_7hKMzJUv1tvxi26PDFKeags8OXhJir2HiQ24ckz8e12k4UsUVz2LkTHDPVg-dV4RBBeJ-M8omakJOFH8bhXrVY_SLMbcEVeOhds1RaPkoMWf9En6PUTluqAR95XogJfu9dZ_wZikKEW7LnGo6Xc3gIl5h0vWi-8EfDVM0ULaTQOQz2RZUkZAz5Gt5P9An3YyPNel3ni8RiVUHzipK1YWH7K3ZHhm5odFt6WJA'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '微微摆动',
               description: '手掌微微向内侧摆动，表示邀请或请求。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBKIX2OmDCFAsYZPJakpCWjAx4bV0_jt7FNLY4P8_7hKMzJUv1tvxi26PDFKeags8OXhJir2HiQ24ckz8e12k4UsUVz2LkTHDPVg-dV4RBBeJ-M8omakJOFH8bhXrVY_SLMbcEVeOhds1RaPkoMWf9En6PUTluqAR95XogJfu9dZ_wZikKEW7LnGo6Xc3gIl5h0vWi-8EfDVM0ULaTQOQz2RZUkZAz5Gt5P9An3YyPNel3ni8RiVUHzipK1YWH7K3ZHhm5odFt6WJA'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -362,20 +362,20 @@ router.get('/:id', async (req, res) => {
           id: 'love',
           title: '我爱你',
           pinyin: 'Wǒ Ài Nǐ',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7e5R8u2xiDc6tD6-xtIp7Zx3-ccq4qflGPMavW5bkzSf4mlt0jd4tI_OcGdIqp_uS1KwQrwm4HqfJvD5tV1N91bpeZ54HQmHKXA8sjijCUjUtZr_y9Ai4WOQa5249ULNLT6QLnasyxxJr39rSJ5gMmRMKUChD0xdj2g86gqQmp7Sbj9FReloHvPS-eLN2AyAOHr17cikoXpZ1cmHES8mVLHrLsGXIJ2n95CquLq_Am-RnNq4P8DWcIkmadgLiF3itBSN2diPaPKo',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“我爱你”时，手势要充满感情，用心传达爱意。',
           steps: [
             {
               id: 1,
               title: '伸出手指',
               description: '一只手伸出拇指、食指和小指，中指和无名指弯曲。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7e5R8u2xiDc6tD6-xtIp7Zx3-ccq4qflGPMavW5bkzSf4mlt0jd4tI_OcGdIqp_uS1KwQrwm4HqfJvD5tV1N91bpeZ54HQmHKXA8sjijCUjUtZr_y9Ai4WOQa5249ULNLT6QLnasyxxJr39rSJ5gMmRMKUChD0xdj2g86gqQmp7Sbj9FReloHvPS-eLN2AyAOHr17cikoXpZ1cmHES8mVLHrLsGXIJ2n95CquLq_Am-RnNq4P8DWcIkmadgLiF3itBSN2diPaPKo'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '放在胸前',
               description: '将手势放在胸前，轻轻晃动，表示我爱你。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7e5R8u2xiDc6tD6-xtIp7Zx3-ccq4qflGPMavW5bkzSf4mlt0jd4tI_OcGdIqp_uS1KwQrwm4HqfJvD5tV1N91bpeZ54HQmHKXA8sjijCUjUtZr_y9Ai4WOQa5249ULNLT6QLnasyxxJr39rSJ5gMmRMKUChD0xdj2g86gqQmp7Sbj9FReloHvPS-eLN2AyAOHr17cikoXpZ1cmHES8mVLHrLsGXIJ2n95CquLq_Am-RnNq4P8DWcIkmadgLiF3itBSN2diPaPKo'
+              image: '/api/images/default/step'
             }
           ]
         }
@@ -440,20 +440,20 @@ router.get('/featured', async (req, res) => {
           id: 'friend',
           title: '朋友',
           pinyin: 'Péng Yǒu',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDF4nCOhtIRD-9wLm0eZcacYy1GeNboSLCJZ8qJNs_edxyoM5CV_1Te3bIvjggDaCC5Qeu7hljg95OHU_BE6En6VeJUkycJR8wB4nuTtlBV3q1bK-0bvS-QbDtafwu64Vqcu308iBAeZaueEctBxKJ_SHJ4BG6Hsn5-cvNNtrnKE0BLG3ukmLSLBQI_3qRLHCtcPwFRE9n79SCIuYd53zApSaJr5asG8ip2XS4wkaQcPag1tQU5Hec5OOPuf__nWX0W8yVVjj3ueDQ',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“朋友”时，双手食指钩在一起，象征着紧密的联结。',
           steps: [
             {
               id: 1,
               title: '食指相对',
               description: '双手食指伸出，指尖相对。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQbwAdqFwtM-sOnRWRQPZ4IqDPFq1em0bCRSVdkLfKuBY-SdVyystyvl9adxsKUzbwfrkJXCJoEtXn_DxXeFgnyK7CY4SaikuZ0XFFqjkMYP-iXLZVDJY_w-eZ0Fekjn0GPDKwbpJhwReJpjSnDulXQeACIG7_wMCmKLFGuvdLn6oEkdhBlRcA7LEm4tBfGyxkR295ny-eXsYaDzvc8FjYfyyiiY8I9NRGqlL9kDeSb_dFuvM7YFgUa76uxan5UgTlCzRrwK8KSx0'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '相钩结合',
               description: '左右食指互相钩在一起，轻轻拉动。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDU0ZIIUAtcPmeIdpgaaqI8K5Z5TqIm23Ot428zOcJfdvp3iWek3zXHVEJnV5F0_yqeOuF1ebpmAqBmgjXrBRj0wg5GWopkf6F-Ate36u4QHMT8d-jiaOSOaPBM3YtJWj1GAq79GsSJ4iWumFsuOkMk6xqtyjycKPbas51GwjlX64wM6SucwGfcjSIX4USk_wHv5EvMNNYfGKbWRBZGA3KcpJ-T1DefS4g94519woWNdUvrYi8Fa_KdwOltE-iiY3IJD5m7kYAOtJ8'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -461,20 +461,20 @@ router.get('/featured', async (req, res) => {
           id: 'hello',
           title: '你好',
           pinyin: 'Nǐ Hǎo',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '做“你好”这个动作时，记得要保持微笑哦！',
           steps: [
             {
               id: 1,
               title: '举起手掌',
               description: '张开你的手掌，举到额头附近，就像敬礼一样。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQbwAdqFwtM-sOnRWRQPZ4IqDPFq1em0bCRSVdkLfKuBY-SdVyystyvl9adxsKUzbwfrkJXCJoEtXn_DxXeFgnyK7CY4SaikuZ0XFFqjkMYP-iXLZVDJY_w-eZ0Fekjn0GPDKwbpJhwReJpjSnDulXQeACIG7_wMCmKLFGuvdLn6oEkdhBlRcA7LEm4tBfGyxkR295ny-eXsYaDzvc8FjYfyyiiY8I9NRGqlL9kDeSb_dFuvM7YFgUa76uxan5UgTlCzRrwK8KSx0'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '向前移动',
               description: '手掌稍微向前并在头部前方画一个小弧线。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDU0ZIIUAtcPmeIdpgaaqI8K5Z5TqIm23Ot428zOcJfdvp3iWek3zXHVEJnV5F0_yqeOuF1ebpmAqBmgjXrBRj0wg5GWopkf6F-Ate36u4QHMT8d-jiaOSOaPBM3YtJWj1GAq79GsSJ4iWumFsuOkMk6xqtyjycKPbas51GwjlX64wM6SucwGfcjSIX4USk_wHv5EvMNNYfGKbWRBZGA3KcpJ-T1DefS4g94519woWNdUvrYi8Fa_KdwOltE-iiY3IJD5m7kYAOtJ8'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -482,20 +482,20 @@ router.get('/featured', async (req, res) => {
           id: 'thank',
           title: '谢谢',
           pinyin: 'Xiè Xiè',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“谢谢”时，双手合十，轻轻点头，表达感激之情。',
           steps: [
             {
               id: 1,
               title: '双手合十',
               description: '双手掌心相对，手指并拢，合十于胸前。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '轻轻点头',
               description: '保持双手合十的姿势，轻轻点头表示感谢。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg'
+              image: '/api/images/default/step'
             }
           ]
         },
@@ -503,20 +503,20 @@ router.get('/featured', async (req, res) => {
           id: 'goodbye',
           title: '再见',
           pinyin: 'Zài Jiàn',
-          thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY',
+          thumbnail: '/api/images/default/thumbnail',
           tip: '表达“再见”时，挥手的动作要轻盈，面带微笑。',
           steps: [
             {
               id: 1,
               title: '举起手臂',
               description: '举起一只手臂，手掌张开，手指自然伸直。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY'
+              image: '/api/images/default/step'
             },
             {
               id: 2,
               title: '左右摆动',
               description: '手臂轻轻左右摆动，手掌向外，表示再见。',
-              image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCS9nNiMWtxCfogk1FYyRWH9bZXnjqgvYK-K4jBQz7jkCx30aHn5My2DBbxr8U3GFwR7ZnweqHvg7rR5v9IxLeMGG_QBrR6ig6IThEqWT7DzeSvV-1c2T31N8MS0ceg8PGsjAFD25VHtO5NTBi16N493pDSk6ynF8hQ9qaooHhjrM3AynOvBbmwjhXJ1gLJUaUf8GezmcDas4Lu3rtQLzT2Op8k5fJ3bmFvdptyqwhSVmRpsB2LXvZ9D86wU5ssSAupvIfBDhfobUY'
+              image: '/api/images/default/step'
             }
           ]
         }

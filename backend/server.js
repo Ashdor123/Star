@@ -14,6 +14,7 @@ const userRoutes = require('./routes/user');
 const lessonRoutes = require('./routes/lesson');
 const progressRoutes = require('./routes/progress');
 const batchRoutes = require('./routes/batch');
+const imageRoutes = require('./routes/image');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -48,6 +49,8 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// 静态资源服务
+app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(authLimiter);
 app.use('/api', apiLimiter);
 
@@ -57,6 +60,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/lessons', lessonRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/batch', batchRoutes);
+app.use('/api/images', imageRoutes);
 
 // 健康检查
 app.get('/api/health', (req, res) => {
