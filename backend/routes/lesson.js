@@ -189,6 +189,130 @@ router.get('/', async (req, res) => {
 });
 
 /**
+ * @route GET /api/lessons/featured
+ * @description 获取推荐课程
+ * @access Public
+ */
+router.get('/featured', async (req, res) => {
+  try {
+    let lessons = [];
+    let error = null;
+
+    try {
+      // 获取推荐课程（这里简单返回前2个课程）
+      const result = await supabase
+        .from('lessons')
+        .select('*')
+        .limit(2);
+
+      lessons = result.data || [];
+      error = result.error;
+    } catch (err) {
+      console.error('获取推荐课程失败:', err);
+      error = err;
+    }
+
+    if (error || lessons.length === 0) {
+      // 使用模拟课程数据
+      lessons = [
+        {
+          id: 'friend',
+          title: '朋友',
+          pinyin: 'Péng Yǒu',
+          thumbnail: '/api/images/default/thumbnail',
+          tip: '表达“朋友”时，双手食指钩在一起，象征着紧密的联结。',
+          steps: [
+            {
+              id: 1,
+              title: '食指相对',
+              description: '双手食指伸出，指尖相对。',
+              image: '/api/images/default/step'
+            },
+            {
+              id: 2,
+              title: '相钩结合',
+              description: '左右食指互相钩在一起，轻轻拉动。',
+              image: '/api/images/default/step'
+            }
+          ]
+        },
+        {
+          id: 'hello',
+          title: '你好',
+          pinyin: 'Nǐ Hǎo',
+          thumbnail: '/api/images/default/thumbnail',
+          tip: '做“你好”这个动作时，记得要保持微笑哦！',
+          steps: [
+            {
+              id: 1,
+              title: '举起手掌',
+              description: '张开你的手掌，举到额头附近，就像敬礼一样。',
+              image: '/api/images/default/step'
+            },
+            {
+              id: 2,
+              title: '向前移动',
+              description: '手掌稍微向前并在头部前方画一个小弧线。',
+              image: '/api/images/default/step'
+            }
+          ]
+        },
+        {
+          id: 'thank',
+          title: '谢谢',
+          pinyin: 'Xiè Xiè',
+          thumbnail: '/api/images/default/thumbnail',
+          tip: '表达“谢谢”时，双手合十，轻轻点头，表达感激之情。',
+          steps: [
+            {
+              id: 1,
+              title: '双手合十',
+              description: '双手掌心相对，手指并拢，合十于胸前。',
+              image: '/api/images/default/step'
+            },
+            {
+              id: 2,
+              title: '轻轻点头',
+              description: '保持双手合十的姿势，轻轻点头表示感谢。',
+              image: '/api/images/default/step'
+            }
+          ]
+        },
+        {
+          id: 'goodbye',
+          title: '再见',
+          pinyin: 'Zài Jiàn',
+          thumbnail: '/api/images/default/thumbnail',
+          tip: '表达“再见”时，挥手的动作要轻盈，面带微笑。',
+          steps: [
+            {
+              id: 1,
+              title: '举起手臂',
+              description: '举起一只手臂，手掌张开，手指自然伸直。',
+              image: '/api/images/default/step'
+            },
+            {
+              id: 2,
+              title: '左右摆动',
+              description: '手臂轻轻左右摆动，手掌向外，表示再见。',
+              image: '/api/images/default/step'
+            }
+          ]
+        }
+      ];
+    }
+
+    res.status(200).json({
+      success: true,
+      lessons
+    });
+  } catch (error) {
+    console.error('获取推荐课程错误:', error);
+    res.status(500).json({ error: '服务器内部错误' });
+  }
+});
+
+/**
  * @route GET /api/lessons/:id
  * @description 获取课程详情（包含步骤）
  * @access Public
@@ -405,130 +529,6 @@ router.get('/:id', async (req, res) => {
     });
   } catch (error) {
     console.error('获取课程详情错误:', error);
-    res.status(500).json({ error: '服务器内部错误' });
-  }
-});
-
-/**
- * @route GET /api/lessons/featured
- * @description 获取推荐课程
- * @access Public
- */
-router.get('/featured', async (req, res) => {
-  try {
-    let lessons = [];
-    let error = null;
-
-    try {
-      // 获取推荐课程（这里简单返回前2个课程）
-      const result = await supabase
-        .from('lessons')
-        .select('*')
-        .limit(2);
-
-      lessons = result.data || [];
-      error = result.error;
-    } catch (err) {
-      console.error('获取推荐课程失败:', err);
-      error = err;
-    }
-
-    if (error || lessons.length === 0) {
-      // 使用模拟课程数据
-      lessons = [
-        {
-          id: 'friend',
-          title: '朋友',
-          pinyin: 'Péng Yǒu',
-          thumbnail: '/api/images/default/thumbnail',
-          tip: '表达“朋友”时，双手食指钩在一起，象征着紧密的联结。',
-          steps: [
-            {
-              id: 1,
-              title: '食指相对',
-              description: '双手食指伸出，指尖相对。',
-              image: '/api/images/default/step'
-            },
-            {
-              id: 2,
-              title: '相钩结合',
-              description: '左右食指互相钩在一起，轻轻拉动。',
-              image: '/api/images/default/step'
-            }
-          ]
-        },
-        {
-          id: 'hello',
-          title: '你好',
-          pinyin: 'Nǐ Hǎo',
-          thumbnail: '/api/images/default/thumbnail',
-          tip: '做“你好”这个动作时，记得要保持微笑哦！',
-          steps: [
-            {
-              id: 1,
-              title: '举起手掌',
-              description: '张开你的手掌，举到额头附近，就像敬礼一样。',
-              image: '/api/images/default/step'
-            },
-            {
-              id: 2,
-              title: '向前移动',
-              description: '手掌稍微向前并在头部前方画一个小弧线。',
-              image: '/api/images/default/step'
-            }
-          ]
-        },
-        {
-          id: 'thank',
-          title: '谢谢',
-          pinyin: 'Xiè Xiè',
-          thumbnail: '/api/images/default/thumbnail',
-          tip: '表达“谢谢”时，双手合十，轻轻点头，表达感激之情。',
-          steps: [
-            {
-              id: 1,
-              title: '双手合十',
-              description: '双手掌心相对，手指并拢，合十于胸前。',
-              image: '/api/images/default/step'
-            },
-            {
-              id: 2,
-              title: '轻轻点头',
-              description: '保持双手合十的姿势，轻轻点头表示感谢。',
-              image: '/api/images/default/step'
-            }
-          ]
-        },
-        {
-          id: 'goodbye',
-          title: '再见',
-          pinyin: 'Zài Jiàn',
-          thumbnail: '/api/images/default/thumbnail',
-          tip: '表达“再见”时，挥手的动作要轻盈，面带微笑。',
-          steps: [
-            {
-              id: 1,
-              title: '举起手臂',
-              description: '举起一只手臂，手掌张开，手指自然伸直。',
-              image: '/api/images/default/step'
-            },
-            {
-              id: 2,
-              title: '左右摆动',
-              description: '手臂轻轻左右摆动，手掌向外，表示再见。',
-              image: '/api/images/default/step'
-            }
-          ]
-        }
-      ];
-    }
-
-    res.status(200).json({
-      success: true,
-      lessons
-    });
-  } catch (error) {
-    console.error('获取推荐课程错误:', error);
     res.status(500).json({ error: '服务器内部错误' });
   }
 });
