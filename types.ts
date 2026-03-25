@@ -27,3 +27,11 @@ export interface Lesson {
   steps: Step[];
   tip: string;
 }
+
+export interface User {
+  id: string;
+  name: string;
+  account?: string;
+  avatar: string;
+  level?: number;
+}

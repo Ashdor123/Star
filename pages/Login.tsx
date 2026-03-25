@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { authApi } from '../src/services/api';
-import { Page } from '../types';
-
-import { User } from '../src/services/api';
+import { Page, User } from '../types';
 
 interface LoginProps {
   onLoginSuccess: (user: User) => void;
