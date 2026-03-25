@@ -147,16 +147,28 @@ const EditProfile: React.FC<EditProfileProps> = ({ userName, userAvatar, onSave,
       await new Promise<void>((resolve, reject) => {
         img.onload = () => {
           // 计算裁剪区域
-          const scaledWidth = img.width * imageScale;
-          const scaledHeight = img.height * imageScale;
+          const containerWidth = 400; // 裁剪容器宽度
+          const containerHeight = 400; // 裁剪容器高度
+          const cropSize = 200; // 裁剪框大小
           
-          const cropX = (cropArea.x - imagePosition.x) / imageScale;
-          const cropY = (cropArea.y - imagePosition.y) / imageScale;
-          const cropWidth = cropArea.width / imageScale;
-          const cropHeight = cropArea.height / imageScale;
+          // 计算裁剪框中心位置
+          const cropCenterX = containerWidth / 2;
+          const cropCenterY = containerHeight / 2;
+          
+          // 计算裁剪区域相对于图片的位置
+          const cropX = (cropCenterX - imagePosition.x - cropSize / 2) / imageScale;
+          const cropY = (cropCenterY - imagePosition.y - cropSize / 2) / imageScale;
+          const cropWidth = cropSize / imageScale;
+          const cropHeight = cropSize / imageScale;
+
+          // 确保裁剪区域在图片范围内
+          const safeCropX = Math.max(0, cropX);
+          const safeCropY = Math.max(0, cropY);
+          const safeCropWidth = Math.min(cropWidth, img.width - safeCropX);
+          const safeCropHeight = Math.min(cropHeight, img.height - safeCropY);
 
           // 绘制裁剪区域到canvas
-          ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, 200, 200);
+          ctx.drawImage(img, safeCropX, safeCropY, safeCropWidth, safeCropHeight, 0, 0, 200, 200);
           resolve();
         };
         img.onerror = reject;
@@ -296,7 +308,10 @@ const EditProfile: React.FC<EditProfileProps> = ({ userName, userAvatar, onSave,
             {/* Current Selection Preview */}
             <div className="relative group">
               <div className="w-32 h-32 rounded-full border-4 border-primary/20 p-1 bg-white shadow-xl overflow-hidden">
-                 <img alt="Selection" className="w-full h-full rounded-full object-cover" src={avatar}/>
+                 <img alt="用户头像" className="w-full h-full rounded-full object-cover" src={avatar} onError={(e) => {
+                   console.error('头像加载失败:', e);
+                   console.log('头像URL:', avatar);
+                 }}/>
               </div>
               <div className="absolute -bottom-2 -right-2 bg-primary text-white p-2 rounded-full shadow-lg">
                  <span className="material-icons-round text-sm">face</span>
