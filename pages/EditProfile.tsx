@@ -33,6 +33,13 @@ const uploadAvatar = async (file: File): Promise<string> => {
     }
     
     const data = await response.json();
+    
+    // 检查是否是开发环境，如果是，添加完整的后端地址
+    const isDevelopment = import.meta.env.DEV;
+    if (isDevelopment && data.imageUrl.startsWith('/')) {
+      return `http://localhost:3001${data.imageUrl}`;
+    }
+    
     return data.imageUrl;
   } catch (error) {
     console.error('上传头像失败:', error);
