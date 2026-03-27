@@ -1,232 +1,145 @@
-import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import { useState, useEffect } from 'react';
 
-const LoginDecorations: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+interface LoginDecorationsProps {
+  monkeyImages?: {
+    topLeft?: string;
+    topRight?: string;
+    bottomLeft?: string;
+    bottomRight?: string;
+  };
+}
+
+const LoginDecorations: React.FC<LoginDecorationsProps> = ({ 
+  monkeyImages = {
+    topLeft: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20monkey%20head%20facing%20right%2C%20simple%20style%2C%20orange%20fur%2C%20big%20eyes&image_size=square',
+    topRight: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20monkey%20head%20facing%20left%2C%20simple%20style%2C%20orange%20fur%2C%20big%20eyes&image_size=square',
+    bottomLeft: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20monkey%20head%20facing%20right%2C%20simple%20style%2C%20orange%20fur%2C%20big%20eyes&image_size=square',
+    bottomRight: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20monkey%20head%20facing%20left%2C%20simple%20style%2C%20orange%20fur%2C%20big%20eyes&image_size=square'
+  }
+}) => {
+  const [loginFormSize, setLoginFormSize] = useState({ width: 0, height: 0 });
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    if (!containerRef.current) return;
-
-    // 创建场景
-    const scene = new THREE.Scene();
-    
-    // 创建相机
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
-
-    // 创建渲染器
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    containerRef.current.appendChild(renderer.domElement);
-
-    // 创建光照
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(1, 1, 1);
-    scene.add(directionalLight);
-
-    // 创建猩猩模型（使用简单的几何体代替实际模型）
-    const createMonkey = (position: THREE.Vector3, rotation: THREE.Euler) => {
-      // 身体
-      const bodyGeometry = new THREE.SphereGeometry(0.8, 32, 32);
-      const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
-      const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-      body.position.copy(position);
-      body.rotation.copy(rotation);
-      scene.add(body);
-
-      // 头部
-      const headGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-      const headMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
-      const head = new THREE.Mesh(headGeometry, headMaterial);
-      head.position.copy(position);
-      head.position.y += 1.2;
-      head.rotation.copy(rotation);
-      scene.add(head);
-
-      // 眼睛
-      const eyeGeometry = new THREE.SphereGeometry(0.1, 16, 16);
-      const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
-      
-      const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-      leftEye.position.copy(position);
-      leftEye.position.y += 1.3;
-      leftEye.position.x += 0.2;
-      leftEye.rotation.copy(rotation);
-      scene.add(leftEye);
-
-      const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-      rightEye.position.copy(position);
-      rightEye.position.y += 1.3;
-      rightEye.position.x -= 0.2;
-      rightEye.rotation.copy(rotation);
-      scene.add(rightEye);
-
-      // 鼻子
-      const noseGeometry = new THREE.SphereGeometry(0.15, 16, 16);
-      const noseMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
-      const nose = new THREE.Mesh(noseGeometry, noseMaterial);
-      nose.position.copy(position);
-      nose.position.y += 1.1;
-      nose.rotation.copy(rotation);
-      scene.add(nose);
-
-      return body;
-    };
-
-    // 创建香蕉模型
-    const createBanana = (position: THREE.Vector3, rotation: THREE.Euler) => {
-      const bananaGeometry = new THREE.CylinderGeometry(0.1, 0.2, 0.8, 32);
-      const bananaMaterial = new THREE.MeshStandardMaterial({ color: 0xFFFF00 });
-      const banana = new THREE.Mesh(bananaGeometry, bananaMaterial);
-      banana.position.copy(position);
-      banana.rotation.copy(rotation);
-      scene.add(banana);
-      return banana;
-    };
-
-    // 创建树枝模型
-    const createBranch = (position: THREE.Vector3, rotation: THREE.Euler, length: number) => {
-      const branchGeometry = new THREE.CylinderGeometry(0.1, 0.1, length, 32);
-      const branchMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
-      const branch = new THREE.Mesh(branchGeometry, branchMaterial);
-      branch.position.copy(position);
-      branch.rotation.copy(rotation);
-      scene.add(branch);
-      return branch;
-    };
-
-    // 放置猩猩模型
-    const monkeys = [
-      // 左上
-      createMonkey(
-        new THREE.Vector3(-3, 2, 0),
-        new THREE.Euler(0, Math.PI / 2, 0)
-      ),
-      // 右上
-      createMonkey(
-        new THREE.Vector3(3, 2, 0),
-        new THREE.Euler(0, -Math.PI / 2, 0)
-      ),
-      // 左下
-      createMonkey(
-        new THREE.Vector3(-3, -2, 0),
-        new THREE.Euler(0, Math.PI / 2, 0)
-      ),
-      // 右下
-      createMonkey(
-        new THREE.Vector3(3, -2, 0),
-        new THREE.Euler(0, -Math.PI / 2, 0)
-      )
-    ];
-
-    // 放置树枝和香蕉
-    const decorations = [
-      // 顶部树枝
-      createBranch(
-        new THREE.Vector3(0, 3, 0),
-        new THREE.Euler(0, 0, Math.PI / 2),
-        6
-      ),
-      // 底部树枝
-      createBranch(
-        new THREE.Vector3(0, -3, 0),
-        new THREE.Euler(0, 0, Math.PI / 2),
-        6
-      ),
-      // 左侧树枝
-      createBranch(
-        new THREE.Vector3(-3, 0, 0),
-        new THREE.Euler(0, 0, 0),
-        4
-      ),
-      // 右侧树枝
-      createBranch(
-        new THREE.Vector3(3, 0, 0),
-        new THREE.Euler(0, 0, 0),
-        4
-      ),
-      // 香蕉
-      createBanana(
-        new THREE.Vector3(0, 2.5, 0),
-        new THREE.Euler(0, Math.PI / 4, 0)
-      ),
-      createBanana(
-        new THREE.Vector3(0, -2.5, 0),
-        new THREE.Euler(0, -Math.PI / 4, 0)
-      ),
-      createBanana(
-        new THREE.Vector3(-2.5, 0, 0),
-        new THREE.Euler(0, 0, Math.PI / 4)
-      ),
-      createBanana(
-        new THREE.Vector3(2.5, 0, 0),
-        new THREE.Euler(0, 0, -Math.PI / 4)
-      )
-    ];
-
-    // 动画循环
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      // 使猩猩模型轻微旋转
-      monkeys.forEach((monkey, index) => {
-        monkey.rotation.y += 0.005 * (index % 2 === 0 ? 1 : -1);
-      });
-
-      // 使香蕉轻微旋转
-      decorations.slice(4).forEach((banana, index) => {
-        banana.rotation.y += 0.01;
-        banana.rotation.x += 0.005;
-      });
-
-      renderer.render(scene, camera);
-    };
-
-    // 响应式调整
+    // 监听窗口大小变化
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
+      setContainerSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
 
-    window.addEventListener('resize', handleResize);
-    animate();
-
-    // 清理
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      containerRef.current?.removeChild(renderer.domElement);
-      renderer.dispose();
-      // 清理几何体和材质
-      scene.traverse((object) => {
-        if (object instanceof THREE.Mesh) {
-          object.geometry.dispose();
-          if (object.material instanceof THREE.Material) {
-            object.material.dispose();
-          }
-        }
+      // 估计登录表单的大小（基于常见设备尺寸）
+      // 实际项目中可以通过ref获取真实大小
+      const estimatedFormWidth = Math.min(window.innerWidth * 0.8, 400);
+      const estimatedFormHeight = Math.min(window.innerHeight * 0.8, 600);
+      setLoginFormSize({
+        width: estimatedFormWidth,
+        height: estimatedFormHeight
       });
     };
+
+    handleResize(); // 初始化
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
-    <div 
-      ref={containerRef} 
-      className="fixed inset-0 z-0 pointer-events-none"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none'
-      }}
-    />
+    <div className="fixed inset-0 z-0 pointer-events-none">
+      {/* 2D树枝边框 */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-16 bg-contain bg-repeat-x opacity-80" 
+        style={{
+          backgroundImage: `url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cartoon%20tree%20branch%20horizontal%2C%20simple%202D%20style%2C%20brown%20color&image_size=landscape_16_9')`,
+          backgroundSize: `${loginFormSize.width}px 64px`
+        }}
+      />
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-16 bg-contain bg-repeat-x opacity-80" 
+        style={{
+          backgroundImage: `url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cartoon%20tree%20branch%20horizontal%2C%20simple%202D%20style%2C%20brown%20color&image_size=landscape_16_9')`,
+          backgroundSize: `${loginFormSize.width}px 64px`
+        }}
+      />
+      <div 
+        className="absolute top-16 bottom-16 left-0 w-16 bg-contain bg-repeat-y opacity-80" 
+        style={{
+          backgroundImage: `url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cartoon%20tree%20branch%20vertical%2C%20simple%202D%20style%2C%20brown%20color&image_size=portrait_16_9')`,
+          backgroundSize: `64px ${loginFormSize.height}px`
+        }}
+      />
+      <div 
+        className="absolute top-16 bottom-16 right-0 w-16 bg-contain bg-repeat-y opacity-80" 
+        style={{
+          backgroundImage: `url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cartoon%20tree%20branch%20vertical%2C%20simple%202D%20style%2C%20brown%20color&image_size=portrait_16_9')`,
+          backgroundSize: `64px ${loginFormSize.height}px`
+        }}
+      />
+
+      {/* 香蕉装饰 */}
+      <div className="absolute top-8 left-1/4 opacity-80 animate-bounce" style={{ animationDuration: '3s' }}>
+        <img 
+          src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20banana%2C%20simple%202D%20style%2C%20yellow%20color&image_size=square" 
+          alt="Banana" 
+          className="w-12 h-12 object-contain"
+        />
+      </div>
+      <div className="absolute top-8 right-1/4 opacity-80 animate-bounce" style={{ animationDuration: '3.5s' }}>
+        <img 
+          src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20banana%2C%20simple%202D%20style%2C%20yellow%20color&image_size=square" 
+          alt="Banana" 
+          className="w-12 h-12 object-contain"
+        />
+      </div>
+      <div className="absolute bottom-8 left-1/4 opacity-80 animate-bounce" style={{ animationDuration: '4s' }}>
+        <img 
+          src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20banana%2C%20simple%202D%20style%2C%20yellow%20color&image_size=square" 
+          alt="Banana" 
+          className="w-12 h-12 object-contain"
+        />
+      </div>
+      <div className="absolute bottom-8 right-1/4 opacity-80 animate-bounce" style={{ animationDuration: '4.5s' }}>
+        <img 
+          src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20banana%2C%20simple%202D%20style%2C%20yellow%20color&image_size=square" 
+          alt="Banana" 
+          className="w-12 h-12 object-contain"
+        />
+      </div>
+
+      {/* 猩猩头部模型 */}
+      <div className="absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2">
+        <img 
+          src={monkeyImages.topLeft} 
+          alt="Monkey Top Left" 
+          className="w-32 h-32 object-contain animate-pulse" 
+          style={{ animationDuration: '4s' }}
+        />
+      </div>
+      <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+        <img 
+          src={monkeyImages.topRight} 
+          alt="Monkey Top Right" 
+          className="w-32 h-32 object-contain animate-pulse" 
+          style={{ animationDuration: '4.5s' }}
+        />
+      </div>
+      <div className="absolute bottom-0 left-0 transform -translate-x-1/2 translate-y-1/2">
+        <img 
+          src={monkeyImages.bottomLeft} 
+          alt="Monkey Bottom Left" 
+          className="w-32 h-32 object-contain animate-pulse" 
+          style={{ animationDuration: '5s' }}
+        />
+      </div>
+      <div className="absolute bottom-0 right-0 transform translate-x-1/2 translate-y-1/2">
+        <img 
+          src={monkeyImages.bottomRight} 
+          alt="Monkey Bottom Right" 
+          className="w-32 h-32 object-contain animate-pulse" 
+          style={{ animationDuration: '5.5s' }}
+        />
+      </div>
+    </div>
   );
 };
 
