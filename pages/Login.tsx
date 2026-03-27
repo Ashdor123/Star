@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { authApi } from '../src/services/api';
 import { Page, User } from '../types';
 import LoginDecorations from '../components/LoginDecorations';
@@ -13,6 +13,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   const handleLogin = async () => {
     try {
@@ -64,7 +65,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-orange-50 relative overflow-hidden">
       {/* 3D装饰元素 */}
-      <LoginDecorations />
+      <LoginDecorations formRef={formRef} />
       
       {/* 登录表单 */}
       <div className="w-full max-w-sm relative z-10">
@@ -76,7 +77,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
           <p className="text-gray-500">儿童趣味学习平台</p>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8">
+        <div ref={formRef} className="bg-white rounded-3xl shadow-xl p-8">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">欢迎回来！</h2>
           
           {error && (
