@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { authApi } from '../src/services/api';
 import { Page, User } from '../types';
+import LoginDecorations from '../components/LoginDecorations';
 
 interface LoginProps {
   onLoginSuccess: (user: User) => void;
@@ -61,8 +62,12 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-orange-50">
-      <div className="w-full max-w-sm">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-orange-50 relative overflow-hidden">
+      {/* 3D装饰元素 */}
+      <LoginDecorations />
+      
+      {/* 登录表单 */}
+      <div className="w-full max-w-sm relative z-10">
         <div className="text-center mb-8">
           <div className="inline-block p-4 bg-orange-100 rounded-2xl mb-4">
             <span className="material-icons-round text-orange-500 text-6xl">sign_language</span>
