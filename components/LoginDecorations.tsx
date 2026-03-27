@@ -11,10 +11,10 @@ interface LoginDecorationsProps {
 
 const LoginDecorations: React.FC<LoginDecorationsProps> = ({ 
   monkeyImages = {
-    topLeft: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20monkey%20head%20facing%20right%2C%20simple%20style%2C%20orange%20fur%2C%20big%20eyes&image_size=square',
-    topRight: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20monkey%20head%20facing%20left%2C%20simple%20style%2C%20orange%20fur%2C%20big%20eyes&image_size=square',
-    bottomLeft: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20monkey%20head%20facing%20right%2C%20simple%20style%2C%20orange%20fur%2C%20big%20eyes&image_size=square',
-    bottomRight: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20monkey%20head%20facing%20left%2C%20simple%20style%2C%20orange%20fur%2C%20big%20eyes&image_size=square'
+    topLeft: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20panda%20head%20facing%20right%2C%20simple%20style%2C%20black%20and%20white%2C%20big%20eyes&image_size=square',
+    topRight: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20panda%20head%20facing%20left%2C%20simple%20style%2C%20black%20and%20white%2C%20big%20eyes&image_size=square',
+    bottomLeft: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20panda%20head%20facing%20right%2C%20simple%20style%2C%20black%20and%20white%2C%20big%20eyes&image_size=square',
+    bottomRight: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20panda%20head%20facing%20left%2C%20simple%20style%2C%20black%20and%20white%2C%20big%20eyes&image_size=square'
   }
 }) => {
   const [loginFormSize, setLoginFormSize] = useState({ width: 0, height: 0 });
