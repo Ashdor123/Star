@@ -1,7 +1,25 @@
 // 根据环境选择API基础URL
-const API_BASE_URL = import.meta.env.PROD 
-  ? (window.location.hostname === 'localhost' ? '/api' : 'http://47.108.175.152:3001/api')
-  : 'http://localhost:3001/api';
+// 优先使用环境变量，否则根据当前域名判断
+const getApiBaseUrl = () => {
+  // 如果定义了环境变量，使用环境变量
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  
+  // 根据当前域名判断
+  const hostname = window.location.hostname;
+  
+  // 本地开发环境
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'http://localhost:3001/api';
+  }
+  
+  // 生产环境 - 使用相对路径（通过Nginx反向代理）
+  // 或者直接指定后端地址
+  return '/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 interface ApiRequestOptions {
   method?: string;
