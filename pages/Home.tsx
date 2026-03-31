@@ -206,11 +206,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
         >
           {/* 背景图 - 限制在滑动窗口内部，根据滚动状态调整透明度 */}
           <div 
-            className="absolute inset-0 bg-contain bg-bottom bg-no-repeat pointer-events-none z-0 transition-opacity duration-300 ease-out"
+            className="absolute inset-0 bg-contain bg-no-repeat pointer-events-none z-0 transition-opacity duration-300 ease-out"
             style={{ 
               backgroundImage: 'url(/home-bg.png.png)',
-              backgroundSize: 'auto 75%',
-              backgroundPosition: 'center bottom 20px',
+              backgroundSize: 'auto 65%',
+              backgroundPosition: 'center bottom 60px',
               opacity: bgOpacity
             }}
           />
