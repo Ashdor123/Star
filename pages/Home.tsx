@@ -157,7 +157,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
         </div>
         <div className="w-28 flex justify-center">
           <div className="animate-bounce-slow relative">
-            <img alt="打招呼猩猩" className="w-24 h-24 drop-shadow-xl object-contain" src="/orangutan-wave.svg" loading="lazy"/>
+            <img alt="打招呼猩猩" className="w-24 h-24 drop-shadow-xl object-contain" src="/orangutan-wave.png" loading="lazy"/>
           </div>
         </div>
       </div>
