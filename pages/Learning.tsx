@@ -106,11 +106,11 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
           <div className="relative">
             <h2 className="text-sm font-bold text-gray-400 uppercase tracking-wider">我的学习中心</h2>
             <h1 className="text-2xl font-black text-gray-800 leading-none">学习小明星</h1>
-            {/* 思考姿态猩猩 - 放置在学习小明星文字右边 */}
-            <div className="absolute -right-12 -top-2 w-12 h-12 md:w-14 md:h-14 opacity-70 pointer-events-none select-none">
+            {/* 思考姿态猩猩 - 放置在学习小明星文字右边，与图标大小一致 */}
+            <div className="absolute -right-16 top-0 w-12 h-12 opacity-90 pointer-events-none select-none">
               <img 
                 alt="思考猩猩" 
-                src="/orangutan-think.svg"
+                src="/orangutan-think.png"
                 className="w-full h-full object-contain animate-pulse"
                 loading="lazy"
               />
