@@ -14,7 +14,7 @@ const Challenge: React.FC<ChallengeProps> = ({ onNavigate, userAvatar }) => {
       <div className="absolute top-24 right-4 w-28 h-28 md:w-36 md:h-36 opacity-50 md:opacity-60 pointer-events-none select-none z-0">
         <img 
           alt="举起双手猩猩" 
-          src="https://minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com/ccv2%2F2026-03-31%2FMiniMax-M2.7%2F1687257157088627%2Fhands-up-orangutan.png?Expires=1775025578&OSSAccessKeyId=LTAI5tGLnRTkBjLuYPjNcKQ8&Signature=example%3D"
+          src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=orangutan-strong&backgroundColor=fee2e2"
           className="w-full h-full object-contain animate-bounce"
           style={{ animationDuration: '2s' }}
           loading="lazy"

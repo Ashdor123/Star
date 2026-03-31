@@ -133,7 +133,7 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
         <div className="absolute -top-2 right-0 w-16 h-16 md:w-20 md:h-20 opacity-60 pointer-events-none select-none">
           <img 
             alt="思考猩猩" 
-            src="https://minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com/ccv2%2F2026-03-31%2FMiniMax-M2.7%2F1687257157088627%2F860abaf9a7d480356baf9b6f3c3d8300d62a755029548af0032d13dac3813b16..png?Expires=1775025578&OSSAccessKeyId=LTAI5tGLnRTkBjLuYPjNcKQ8&Signature=d6O7fyxiuGXIMRTrmcFiKJCJH3I%3D"
+            src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=orangutan-think&backgroundColor=e5e7eb"
             className="w-full h-full object-contain animate-pulse"
             loading="lazy"
           />
