@@ -97,8 +97,18 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
   ];
 
   return (
-    <div className="flex flex-col min-h-screen px-6 pt-12 pb-8">
-      <header className="flex items-center justify-between mb-8">
+    <div className="flex flex-col min-h-screen px-6 pt-12 pb-8 relative overflow-hidden">
+      {/* 思考姿态猩猩装饰 - 学习界面专属 */}
+      <div className="absolute top-20 right-4 w-24 h-24 md:w-32 md:h-32 opacity-30 md:opacity-40 pointer-events-none select-none z-0">
+        <img 
+          alt="思考猩猩" 
+          src="https://minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com/ccv2%2F2026-03-31%2FMiniMax-M2.7%2F1687257157088627%2F860abaf9a7d480356baf9b6f3c3d8300d62a755029548af0032d13dac3813b16..png?Expires=1775025578&OSSAccessKeyId=LTAI5tGLnRTkBjLuYPjNcKQ8&Signature=d6O7fyxiuGXIMRTrmcFiKJCJH3I%3D"
+          className="w-full h-full object-contain animate-pulse"
+          loading="lazy"
+        />
+      </div>
+      
+      <header className="flex items-center justify-between mb-8 relative z-10">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-white rounded-full shadow-bouncy flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer">
             <img alt="User" className="w-10 h-10 rounded-full border-2 border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsYvFGGfTEcr8eeBY60uN_pRXnqYm71l-TfdCNrv30DtqmPzjeSaTSOxRXQQYWoui3DOaQsl_XQm0EFVIcqpQhhyKFWiLwPghEm-RyjEDhOl5jORpfjID18Pdq_LxwjFDykGEnnAWnmUWVgsz5XBu-3Kja6v0I_gmnlNk4v2LWhrSTxju19xWByzxz2yxV8xKa_SIC3z9NxJ_wEoPuywTVQ0dXIP01H4E0v87UGxHhdalDVCjzBQIlKp79XhJAbtNPfYCc-KiMsuw"/>

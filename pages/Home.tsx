@@ -107,8 +107,16 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
   }, [searchQuery, featuredLessons, onNavigate]);
 
   return (
-    <div className="flex flex-col min-h-screen relative">
-      <header className="flex justify-between items-center px-6 pt-8 pb-4">
+    <div className="flex flex-col min-h-screen relative overflow-hidden">
+      {/* 背景猩猩装饰 */}
+      <div className="absolute top-20 left-4 w-16 h-16 opacity-10 animate-pulse hover:opacity-20 transition-opacity duration-300">
+        <img alt="Orangutan decoration" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20orangutan%20waving%20friendly%20smile%20simple%20style&image_size=square" className="w-full h-full object-contain transform hover:scale-110 transition-transform duration-300" />
+      </div>
+      <div className="absolute bottom-20 right-4 w-20 h-20 opacity-10 animate-pulse hover:opacity-20 transition-opacity duration-300">
+        <img alt="Orangutan decoration" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20orangutan%20waving%20friendly%20smile%20simple%20style&image_size=square" className="w-full h-full object-contain transform hover:scale-110 transition-transform duration-300" />
+      </div>
+      
+      <header className="flex justify-between items-center px-6 pt-8 pb-4 relative z-10">
         <div className="flex flex-col">
           <h1 className="text-3xl font-bold text-gray-800 tracking-wide">
             嗨，<span className="text-primary">{userName}!</span> 👋
@@ -125,7 +133,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
         </div>
       </header>
 
-      <div className="px-6 mb-6">
+      <div className="px-6 mb-6 relative z-10">
         <form onSubmit={handleSearch} className="bg-white rounded-2xl p-3 shadow-sm flex items-center gap-3 border border-gray-100">
           <span className="material-icons-round text-gray-400 text-2xl ml-1">search</span>
           <input 
@@ -141,7 +149,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
         </form>
       </div>
 
-      <div className="px-6 mb-8 flex items-center justify-between">
+      <div className="px-6 mb-8 flex items-center justify-between relative z-10">
         <div className="flex-1 pr-4">
           <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl p-5 text-white shadow-lg relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-10 -mt-10"></div>
@@ -157,18 +165,22 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
         </div>
         <div className="w-28 flex justify-center">
           <div className="animate-bounce-slow relative">
-            <img alt="Mascot" className="w-24 h-24 drop-shadow-xl" src="/api/images/default/thumbnail" loading="lazy"/>
+            <img alt="Orangutan Mascot" className="w-24 h-24 drop-shadow-xl" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20orangutan%20waving%20friendly%20smile%20simple%20style&image_size=square" loading="lazy"/>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 px-6 space-y-6 overflow-y-auto pb-8 hide-scrollbar">
+      <div className="flex-1 px-6 space-y-6 overflow-y-auto pb-8 hide-scrollbar relative z-10">
         <h2 className="text-xl font-bold text-gray-800 mb-2">四星手语</h2>
         <div className="grid grid-cols-2 gap-4">
           <div 
             onClick={() => onNavigate(Page.LEARNING, undefined, 'core')}
             className="col-span-2 bg-red-100 rounded-3xl p-1 relative overflow-hidden group hover:scale-[1.01] transition-transform cursor-pointer"
           >
+            {/* 猩猩花边装饰 */}
+            <div className="absolute top-2 right-2 w-12 h-12 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
+              <img alt="Orangutan decoration" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20orangutan%20waving%20friendly%20smile%20simple%20style&image_size=square" className="w-full h-full object-contain transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+            </div>
             <div className="bg-white rounded-[1.3rem] p-5 h-full border-2 border-red-200">
               <div className="flex justify-between items-start mb-2">
                 <div className="w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center text-red-500">
@@ -189,6 +201,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
              onClick={() => onNavigate(Page.LEARNING, undefined, 'extended')}
             className="bg-orange-100 rounded-3xl p-1 relative overflow-hidden group hover:scale-[1.02] transition-transform cursor-pointer"
           >
+            {/* 猩猩花边装饰 */}
+            <div className="absolute top-2 right-2 w-10 h-10 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
+              <img alt="Orangutan decoration" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20orangutan%20waving%20friendly%20smile%20simple%20style&image_size=square" className="w-full h-full object-contain transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+            </div>
             <div className="bg-white rounded-[1.3rem] p-4 h-full border-2 border-orange-200 flex flex-col justify-between">
               <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center text-orange-500 mb-3">
                 <span className="material-icons-round text-2xl">rocket_launch</span>
@@ -204,6 +220,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
             onClick={() => onNavigate(Page.CHALLENGE)}
             className="bg-yellow-100 rounded-3xl p-1 relative overflow-hidden group hover:scale-[1.02] transition-transform cursor-pointer"
           >
+            {/* 猩猩花边装饰 */}
+            <div className="absolute top-2 right-2 w-10 h-10 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
+              <img alt="Orangutan decoration" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20orangutan%20waving%20friendly%20smile%20simple%20style&image_size=square" className="w-full h-full object-contain transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+            </div>
             <div className="bg-white rounded-[1.3rem] p-4 h-full border-2 border-yellow-200 flex flex-col justify-between">
               <div className="w-10 h-10 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 mb-3">
                 <span className="material-icons-round text-2xl">emoji_events</span>
@@ -219,6 +239,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
             onClick={() => onNavigate(Page.PROFILE)}
             className="col-span-2 bg-green-100 rounded-3xl p-1 relative overflow-hidden group hover:scale-[1.02] transition-transform cursor-pointer"
           >
+            {/* 猩猩花边装饰 */}
+            <div className="absolute top-2 right-2 w-12 h-12 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
+              <img alt="Orangutan decoration" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20orangutan%20waving%20friendly%20smile%20simple%20style&image_size=square" className="w-full h-full object-contain transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+            </div>
             <div className="bg-white rounded-[1.3rem] p-5 h-full border-2 border-green-200 flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-1">

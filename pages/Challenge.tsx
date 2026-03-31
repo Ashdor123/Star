@@ -10,6 +10,17 @@ interface ChallengeProps {
 const Challenge: React.FC<ChallengeProps> = ({ onNavigate, userAvatar }) => {
   return (
     <div className="flex flex-col min-h-screen relative overflow-hidden bg-background-light">
+      {/* 锻炼姿态猩猩装饰 - 闯关界面专属 */}
+      <div className="absolute top-24 right-4 w-28 h-28 md:w-36 md:h-36 opacity-40 md:opacity-50 pointer-events-none select-none z-0">
+        <img 
+          alt="锻炼猩猩" 
+          src="https://minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com/ccv2%2F2026-03-31%2FMiniMax-M2.7%2F1687257157088627%2F5f9a2f4e7a3d8b1c6e0f9a2b4c7d8e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8.png?Expires=1775025578&OSSAccessKeyId=LTAI5tGLnRTkBjLuYPjNcKQ8&Signature=example%3D"
+          className="w-full h-full object-contain animate-bounce"
+          style={{ animationDuration: '2s' }}
+          loading="lazy"
+        />
+      </div>
+      
       <header className="relative z-10 px-6 pt-12 pb-4 flex justify-between items-center bg-white/80 backdrop-blur-md rounded-b-3xl shadow-sm">
         <div className="flex items-center space-x-3">
           <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-primary to-yellow-300 p-1 shadow-lg">
