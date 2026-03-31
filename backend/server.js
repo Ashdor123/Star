@@ -20,10 +20,10 @@ const uploadRoutes = require('./routes/upload');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// 速率限制中间件
+// 速率限制中间件 - 已放宽限制
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: 1000,
   message: { error: '请求过于频繁，请稍后再试' },
   standardHeaders: true,
   legacyHeaders: false,
@@ -32,10 +32,10 @@ const authLimiter = rateLimit({
   }
 });
 
-// 通用速率限制
+// 通用速率限制 - 已放宽限制
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 5000,
   message: { error: 'API请求过于频繁，请稍后再试' },
   standardHeaders: true,
   legacyHeaders: false
