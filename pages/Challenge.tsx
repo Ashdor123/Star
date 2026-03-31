@@ -11,10 +11,10 @@ const Challenge: React.FC<ChallengeProps> = ({ onNavigate, userAvatar }) => {
   return (
     <div className="flex flex-col min-h-screen relative overflow-hidden bg-background-light">
       {/* 举起双手姿态猩猩装饰 - 闯关界面专属 */}
-      <div className="absolute top-24 right-4 w-28 h-28 md:w-36 md:h-36 opacity-50 md:opacity-60 pointer-events-none select-none z-0">
+      <div className="absolute top-32 right-4 w-28 h-28 md:w-36 md:h-36 opacity-70 md:opacity-80 pointer-events-none select-none z-0">
         <img 
           alt="举起双手猩猩" 
-          src="/orangutan-strong.svg"
+          src="/orangutan-strong.png"
           className="w-full h-full object-contain animate-bounce"
           style={{ animationDuration: '2s' }}
           loading="lazy"
