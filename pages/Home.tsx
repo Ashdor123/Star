@@ -108,6 +108,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
 
   return (
     <div className="flex flex-col min-h-screen relative overflow-hidden">
+      {/* 背景图设置 - 隐约可见 */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 pointer-events-none z-0"
+        style={{ backgroundImage: 'url(/home-bg.png.png)' }}
+      />
+      
       <header className="flex justify-between items-center px-6 pt-8 pb-4 relative z-10">
         <div className="flex flex-col">
           <h1 className="text-3xl font-bold text-gray-800 tracking-wide">
