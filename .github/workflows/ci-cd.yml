@@ -5,193 +5,186 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  # 允许手动触发
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
 
 jobs:
+  # 构建任务
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
 
+    # 前端构建
     - name: Install frontend dependencies
-      run: npm install
+      run: npm ci
 
     - name: Build frontend
-      run: npx vite build || npm exec vite build || echo "Frontend build failed, but continuing with existing dist directory if it exists"
-      continue-on-error: true
+      run: npm run build
+      env:
+        NODE_ENV: production
 
-    - name: Check if dist directory exists
+    - name: Verify dist directory
       run: |
         if [ -d "dist" ]; then
-          echo "dist directory exists, checking contents..."
+          echo "✅ dist directory exists"
           ls -la dist
+          echo "dist size: $(du -sh dist | cut -f1)"
         else
-          echo "ERROR: dist directory does not exist!"
+          echo "❌ dist directory does not exist!"
           exit 1
         fi
 
+    # 后端依赖安装
     - name: Install backend dependencies
-      run: cd backend && npm install
+      run: |
+        cd backend
+        npm ci
 
-    - name: Lint frontend
-      run: npm run lint || echo "No lint script found"
-
-    - name: Test frontend
-      run: npm test || echo "No test script found"
-
-    - name: Upload build artifacts
+    # 上传构建产物
+    - name: Upload frontend build
       uses: actions/upload-artifact@v4
       with:
-        name: build
-        path: dist
+        name: frontend-dist
+        path: dist/
+        retention-days: 7
 
+    - name: Upload backend code
+      uses: actions/upload-artifact@v4
+      with:
+        name: backend-code
+        path: backend/
+        retention-days: 7
+
+  # 部署任务
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    # 只在 push 到 main/master 时部署，不在 pull_request 时部署
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-
+    
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-    - name: Download build artifacts
+    # 下载构建产物
+    - name: Download frontend build
       uses: actions/download-artifact@v4
       with:
-        name: build
-        path: dist
+        name: frontend-dist
+        path: dist/
+
+    - name: Download backend code
+      uses: actions/download-artifact@v4
+      with:
+        name: backend-code
+        path: backend/
+
+    - name: List downloaded files
+      run: |
+        echo "Frontend files:"
+        ls -la dist/
+        echo "Backend files:"
+        ls -la backend/
+
+    # 检查 Secrets 是否配置
+    - name: Check secrets configuration
+      run: |
+        echo "Checking secrets..."
+        if [ -z "${{ secrets.ALIYUN_ECS_HOST }}" ]; then
+          echo "❌ ALIYUN_ECS_HOST is not set"
+          exit 1
+        else
+          echo "✅ ALIYUN_ECS_HOST is set"
+        fi
+        
+        if [ -z "${{ secrets.ALIYUN_ECS_USER }}" ]; then
+          echo "❌ ALIYUN_ECS_USER is not set"
+          exit 1
+        else
+          echo "✅ ALIYUN_ECS_USER is set"
+        fi
+        
+        if [ -z "${{ secrets.ALIYUN_ECS_SSH_KEY }}" ]; then
+          echo "❌ ALIYUN_ECS_SSH_KEY is not set"
+          exit 1
+        else
+          echo "✅ ALIYUN_ECS_SSH_KEY is set"
+        fi
 
     # 测试服务器连接
-    - name: Test server connection
+    - name: Test SSH connection
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.ALIYUN_ECS_HOST }}
         username: ${{ secrets.ALIYUN_ECS_USER }}
         key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
         script: |
-          echo "=== Server connection test ==="
-          echo "Current directory: $(pwd)"
-          echo "Server hostname: $(hostname)"
-          echo "Server date: $(date)"
-          echo "Server uptime: $(uptime)"
-          echo "Server connection test completed"
-      continue-on-error: true
+          echo "✅ SSH connection successful"
+          echo "Server: $(hostname)"
+          echo "Time: $(date)"
+          echo "Uptime: $(uptime)"
 
     # 部署前端
-    - name: Deploy frontend
-      uses: easingthemes/ssh-deploy@v5.1.0
+    - name: Deploy frontend to server
+      uses: appleboy/scp-action@v0.1.7
       with:
-        SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
-        REMOTE_HOST: ${{ secrets.ALIYUN_ECS_HOST }}
-        REMOTE_USER: ${{ secrets.ALIYUN_ECS_USER }}
-        TARGET: ${{ secrets.ALIYUN_ECS_TARGET_DIR || '/www/wwwroot/star-sign-language/dist' }}
-        SOURCE: "dist/"
-        ARGS: "-rltgoDzvO --delete --exclude=.user.ini"
-      continue-on-error: true
+        host: ${{ secrets.ALIYUN_ECS_HOST }}
+        username: ${{ secrets.ALIYUN_ECS_USER }}
+        key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
+        source: "dist/*"
+        target: ${{ secrets.ALIYUN_ECS_TARGET_DIR || '/www/wwwroot/star-sign-language/dist' }}
+        strip_components: 1
+        overwrite: true
 
     # 部署后端
-    - name: Deploy backend
-      uses: easingthemes/ssh-deploy@v5.1.0
+    - name: Deploy backend to server
+      uses: appleboy/scp-action@v0.1.7
       with:
-        SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
-        REMOTE_HOST: ${{ secrets.ALIYUN_ECS_HOST }}
-        REMOTE_USER: ${{ secrets.ALIYUN_ECS_USER }}
-        TARGET: ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/www/wwwroot/star-sign-language-backend' }}
-        SOURCE: "backend/"
-        ARGS: "-rltgoDzvO --delete"
-      continue-on-error: true
+        host: ${{ secrets.ALIYUN_ECS_HOST }}
+        username: ${{ secrets.ALIYUN_ECS_USER }}
+        key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
+        source: "backend/*"
+        target: ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/www/wwwroot/star-sign-language-backend' }}
+        strip_components: 1
+        overwrite: true
 
-    # 重启后端服务
-    - name: Restart backend service
+    # 部署部署脚本
+    - name: Deploy deploy script
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.ALIYUN_ECS_HOST }}
+        username: ${{ secrets.ALIYUN_ECS_USER }}
+        key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
+        source: "deploy.sh"
+        target: ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/www/wwwroot/star-sign-language-backend' }}
+        overwrite: true
+
+    # 执行部署脚本
+    - name: Execute deployment
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.ALIYUN_ECS_HOST }}
         username: ${{ secrets.ALIYUN_ECS_USER }}
         key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
         script: |
-          echo "=== Restarting backend service ==="
-          echo "Target directory: ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/www/wwwroot/star-sign-language-backend' }}"
+          echo "========================================"
+          echo "Starting deployment..."
+          echo "========================================"
+          
+          BACKEND_DIR="${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/www/wwwroot/star-sign-language-backend' }}"
+          
+          echo "Backend directory: $BACKEND_DIR"
+          
           # 检查目录是否存在
-          if [ -d "${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/www/wwwroot/star-sign-language-backend' }}" ]; then
-            echo "Directory exists, proceeding..."
-            cd ${{ secrets.ALIYUN_ECS_BACKEND_DIR || '/www/wwwroot/star-sign-language-backend' }}
-            # 列出目录内容
-            ls -la
-            # 检查 .env 文件是否存在
-            if [ ! -f ".env" ]; then
-              echo "警告: .env 文件不存在，创建默认配置..."
-              echo "# Supabase配置" > .env
-              echo "SUPABASE_URL=https://xhzqhuynpvtrcwpdeipn.supabase.co" >> .env
-              echo "SUPABASE_SERVICE_ROLE_KEY=sb_publishable_sbS8ljbGYFxoM9jcKdkMKA_DIPco2BE" >> .env
-              echo "" >> .env
-              echo "# JWT配置" >> .env
-              echo "JWT_SECRET=four-star-sign-language-secret-key-2026" >> .env
-              echo "JWT_EXPIRES_IN=7d" >> .env
-              echo "" >> .env
-              echo "# 服务器配置" >> .env
-              echo "PORT=3001" >> .env
-              echo "NODE_ENV=production" >> .env
-              echo ".env 文件已创建"
-            fi
-            # 检查package.json是否存在
-            if [ -f "package.json" ]; then
-              echo "package.json found, installing dependencies..."
-              npm install
-            else
-              echo "package.json not found!"
-              exit 1
-            fi
-            # 检查start.sh是否存在并赋予执行权限
-            if [ -f "start.sh" ]; then
-              chmod +x start.sh
-              echo "使用 start.sh 启动服务..."
-              ./start.sh
-            elif [ -f "server.js" ]; then
-              echo "使用 server.js 启动服务..."
-              # 创建必要的目录结构
-              echo "创建上传目录..."
-              mkdir -p uploads/lessons uploads/steps uploads/avatars
-              chmod 755 uploads
-              chmod 755 uploads/lessons
-              chmod 755 uploads/steps
-              chmod 755 uploads/avatars
-              ls -la uploads
-              # 停止旧服务
-              pm2 stop star-sign-language-backend 2>/dev/null || true
-              pm2 delete star-sign-language-backend 2>/dev/null || true
-              # 启动新服务
-              pm2 start server.js --name star-sign-language-backend
-              pm2 save
-              sleep 3
-              pm2 status
-            else
-              echo "server.js not found!"
-              exit 1
-            fi
-          else
-            echo "Directory does not exist!"
-            exit 1
-          fi
-          echo "=== Backend service restart completed ==="
-
-    # 检查后端服务健康状态
-    - name: Check backend service health
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.ALIYUN_ECS_HOST }}
-        username: ${{ secrets.ALIYUN_ECS_USER }}
-        key: ${{ secrets.ALIYUN_ECS_SSH_KEY }}
-        script: |
-          echo "=== Checking backend service health ==="
-          # 检查服务状态
-          pm2 status
-          # 检查服务是否正在运行
-          pm2 describe star-sign-language-backend || echo "Service description not available"
-          # 尝试访问API
-          curl -s http://localhost:3001/api/lessons || echo "API endpoint not accessible, service may still be starting"
-          echo "=== Backend service health check completed ==="
-      continue-on-error: true

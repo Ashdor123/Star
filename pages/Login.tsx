@@ -1,7 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { authApi } from '../src/services/api';
 import { Page, User } from '../types';
-import LoginDecorations from '../components/LoginDecorations';
 
 interface LoginProps {
   onLoginSuccess: (user: User) => void;
@@ -13,7 +12,6 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const formRef = useRef<HTMLDivElement>(null);
 
   const handleLogin = async () => {
     try {
@@ -64,9 +62,6 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
 
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center bg-orange-50 relative overflow-hidden" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
-      {/* 装饰元素 */}
-      <LoginDecorations formRef={formRef} />
-      
       {/* 登录表单容器 */}
       <div className="w-full max-w-sm relative z-10 px-4">
         {/* 标题区域 */}
@@ -78,10 +73,9 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateToRegister }) =
           <p className="text-gray-500 text-sm">儿童趣味学习平台</p>
         </div>
 
-        {/* 登录表单 - 带边框 */}
+        {/* 登录表单 */}
         <div 
-          ref={formRef} 
-          className="bg-white rounded-3xl shadow-xl p-6 border-4 border-orange-200"
+          className="bg-white rounded-3xl shadow-xl p-6"
           style={{ maxHeight: 'calc(100vh - 200px)', overflow: 'hidden' }}
         >
           <h2 className="text-xl font-bold text-center text-gray-800 mb-4">欢迎回来！</h2>

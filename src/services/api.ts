@@ -1,5 +1,7 @@
 // 根据环境选择API基础URL
-const API_BASE_URL = import.meta.env.PROD ? '/api' : 'http://localhost:3001/api';
+const API_BASE_URL = import.meta.env.PROD 
+  ? (window.location.hostname === 'localhost' ? '/api' : 'http://47.108.175.152:3001/api')
+  : 'http://localhost:3001/api';
 
 interface ApiRequestOptions {
   method?: string;
