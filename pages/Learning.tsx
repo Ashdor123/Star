@@ -187,7 +187,7 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
                   <p className="text-sm font-bold text-gray-400 leading-tight">数数、加法和有趣的谜题！</p>
                 </div>
                 <div className="absolute right-[-10px] bottom-[-10px] w-36 h-36 floating">
-                  <img alt="Math" className="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoFsOIwjBeGT0a6OB_m-nGbtYVlODIl_Tl0Yy4AMYD7ldKdrIupeBSNh8GS9LkiwMFW8TB1aWud2HSAHDGi8V40gpLMilWuvMQ6SDIn72YaveKt0TTM52hX9c5bqFCDSPks-VEUq7C3T3I684XnfrLBBJMpqHem2QWlSLObTng9sLZW37U3J6PRCyuAkgZUxd57EnGdm7gcakzaYN8BFflNlDmjBgBLvvcWMucr0c80E7I9neOjhjVZ5SqA2Ny-fCN3QnGFM6bXXk"/>
+                  <img alt="Math" className="w-full h-full object-contain" src="/math.png"/>
                 </div>
               </div>
             </div>
@@ -203,7 +203,7 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
                   <p className="text-sm font-bold text-gray-400 leading-tight">学习汉字并阅读故事。</p>
                 </div>
                 <div className="absolute right-[-10px] bottom-[-10px] w-36 h-36 floating" style={{ animationDelay: '1s' }}>
-                  <img alt="Reading" className="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2N5HECJ7OhHAfEgHVAS032W74j6aXforqfINICjaXvHscgmxHaX1ceGDqdrKXCLyykjfIpPd4tfTHXy3tgu-7QqotFqJoiSABjl9T3ZWloiI3Q6yH-r-Ru7mvFLul_z39q45aTaqEb1O5J9Zjr4L0Hxf7VcSpPL73UbVQtR6kPsSv1gfSSBUEClQ7P0gHGamdjU4S0Nd8fyGDLm94VGqBzAGS0BE9t2LfwbczLJKJZ2D8HM4J-Hkt8g5TMvi4T9poIm-CAp3Dids"/>
+                  <img alt="Reading" className="w-full h-full object-contain" src="/chinese.png"/>
                 </div>
               </div>
             </div>
