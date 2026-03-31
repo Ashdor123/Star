@@ -94,12 +94,13 @@ router.post('/login', async (req, res) => {
       logAuthAttempt('游客登录', 'guest', true, '游客模式登录');
       
       const guestAccount = 'guest_' + Date.now();
+      const guestPassword = await bcrypt.hash('guest', SALT_ROUNDS);
       const { data: newUser, error } = await supabase
         .from('users')
         .insert([{
           name: '游客',
           account: guestAccount,
-          password: 'guest',
+          password: guestPassword,
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_4Vemod3sTNTovtXknl5nGwKmnu2glkFk7b-9IlUdT3UZmOxlRBi_-r4PtN6zuNAC8bhKmI1Rr8ymbqqD28KhJFd4-jZN3_9hJteTDA15tmX9SSqyZQruYohwT0bPCJvS04B-p2MqILmEwCNWBf1lnlIUVi7KGfIi8JrERsAr9YXjRjwppJ4qjdrIfzwExN8ti82iT0-95v5qgfeQBbsUmi48sGjJEHCWIdDrx7ACBo2YVVXPoeJtvi_xL5Jv7TsBkvgoF7cTg',
           level: 1
         }])

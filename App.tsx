@@ -79,6 +79,8 @@ const App: React.FC = () => {
         setIsAuthenticated(true);
         // 导航到首页
         setCurrentPage(Page.HOME);
+      } else {
+        throw new Error(response.error || '登录失败，请重试');
       }
     } catch (error) {
       console.error('登录失败:', error);

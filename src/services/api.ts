@@ -1,6 +1,9 @@
 // API基础URL配置
-// 生产环境使用服务器IP地址，开发环境使用localhost
-const API_BASE_URL = 'http://47.108.175.152:3001/api';
+// 优先使用环境变量，否则根据当前域名判断
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? 'http://localhost:3001/api' 
+    : 'http://47.108.175.152:3001/api');
 
 interface ApiRequestOptions {
   method?: string;

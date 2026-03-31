@@ -44,7 +44,9 @@ const apiLimiter = rateLimit({
 // 中间件
 app.use(logger);
 app.use(cors({
-  origin: '*',
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['http://47.108.175.152', 'https://47.108.175.152'] 
+    : '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));

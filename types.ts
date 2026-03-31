@@ -35,3 +35,18 @@ export interface User {
   avatar: string;
   level?: number;
 }
+
+export interface LearningProgress {
+  id: string;
+  user_id: string;
+  lesson_id: string;
+  completed: boolean;
+  progress: number;
+  last_accessed: string;
+}
+
+export interface ProgressData {
+  completed?: boolean;
+  progress?: number;
+  last_accessed?: string;
+}
