@@ -1,7 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { authApi } from '../src/services/api';
 import { Page } from '../types';
-import LoginDecorations from '../components/LoginDecorations';
 
 interface RegisterProps {
   onRegisterSuccess: () => void;
@@ -14,7 +13,6 @@ const Register: React.FC<RegisterProps> = ({ onRegisterSuccess, onBack }) => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const formRef = useRef<HTMLDivElement>(null);
 
   const handleRegister = async () => {
     if (!userName.trim()) {
@@ -57,9 +55,6 @@ const Register: React.FC<RegisterProps> = ({ onRegisterSuccess, onBack }) => {
 
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center bg-orange-50 relative overflow-hidden" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
-      {/* 装饰元素 */}
-      <LoginDecorations formRef={formRef} />
-      
       {/* 返回按钮 */}
       <button 
         onClick={onBack}
@@ -81,10 +76,9 @@ const Register: React.FC<RegisterProps> = ({ onRegisterSuccess, onBack }) => {
           <p className="text-gray-500 text-sm">儿童趣味学习平台</p>
         </div>
 
-        {/* 注册表单 - 带边框 */}
+        {/* 注册表单 */}
         <div 
-          ref={formRef} 
-          className="bg-white rounded-3xl shadow-xl p-6 border-4 border-orange-200"
+          className="bg-white rounded-3xl shadow-xl p-6"
           style={{ maxHeight: 'calc(100vh - 200px)', overflow: 'hidden' }}
         >
           <h2 className="text-xl font-bold text-center text-gray-800 mb-1">欢迎你，小朋友！</h2>
