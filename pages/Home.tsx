@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useCallback, memo } from 'react';
+import { useState, useEffect, useCallback, memo, useRef } from 'react';
 import { Page, Lesson } from '../types';
 import { lessonApi } from '../src/services/api';
 
@@ -14,6 +14,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
   const [showMissingModal, setShowMissingModal] = useState(false);
   const [featuredLessons, setFeaturedLessons] = useState<Lesson[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // 背景图透明度状态：滚动时为0.25，停止时为0.8
+  const [bgOpacity, setBgOpacity] = useState(0.8);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // 默认课程数据，当API获取失败时使用
   const DEFAULT_FRIEND_LESSON: Lesson = {
@@ -106,6 +111,31 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
     }
   }, [searchQuery, featuredLessons, onNavigate]);
 
+  // 处理滚动事件
+  const handleScroll = useCallback(() => {
+    // 滚动时将透明度设为 0.25
+    setBgOpacity(0.25);
+    
+    // 清除之前的定时器
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    
+    // 设置新的定时器，150ms后认为滚动停止，将透明度设为 0.8
+    scrollTimeoutRef.current = setTimeout(() => {
+      setBgOpacity(0.8);
+    }, 150);
+  }, []);
+
+  // 清理定时器
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="flex flex-col h-screen relative overflow-hidden bg-gradient-to-b from-orange-50/80 via-yellow-50/60 to-white">
       
@@ -174,14 +204,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
             boxShadow: '0 -8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
           }}
         >
-          {/* 背景图 - 限制在滑动窗口内部 */}
+          {/* 背景图 - 限制在滑动窗口内部，根据滚动状态调整透明度 */}
           <div 
-            className="absolute inset-0 bg-contain bg-bottom bg-no-repeat pointer-events-none z-0"
+            className="absolute inset-0 bg-contain bg-bottom bg-no-repeat pointer-events-none z-0 transition-opacity duration-300 ease-out"
             style={{ 
               backgroundImage: 'url(/home-bg.png.png)',
               backgroundSize: 'auto 75%',
               backgroundPosition: 'center bottom 20px',
-              opacity: 0.25
+              opacity: bgOpacity
             }}
           />
           
@@ -199,7 +229,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
           </div>
           
           {/* 可滚动内容区域 */}
-          <div className="flex-1 overflow-y-auto px-6 pb-6 scroll-smooth relative z-10" style={{ scrollbarWidth: 'thin' }}>
+          <div 
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="flex-1 overflow-y-auto px-6 pb-6 scroll-smooth relative z-10" 
+            style={{ scrollbarWidth: 'thin' }}
+          >
             <div className="grid grid-cols-2 gap-4">
               <div 
                 onClick={() => onNavigate(Page.LEARNING, undefined, 'core')}
