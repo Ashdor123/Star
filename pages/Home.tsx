@@ -108,16 +108,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
 
   return (
     <div className="flex flex-col h-screen relative overflow-hidden bg-gradient-to-b from-orange-50/80 via-yellow-50/60 to-white">
-      {/* 背景图设置 - 优化显示效果 */}
-      <div 
-        className="absolute inset-0 bg-contain bg-bottom bg-no-repeat pointer-events-none z-0"
-        style={{ 
-          backgroundImage: 'url(/home-bg.png.png)',
-          backgroundSize: 'auto 85%',
-          backgroundPosition: 'center bottom',
-          opacity: 0.35
-        }}
-      />
       
       {/* 顶部固定区域 */}
       <div className="flex-shrink-0 relative z-10">
@@ -179,18 +169,29 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
       {/* 底部滑动窗口 - 四星手语 */}
       <div className="flex-1 relative z-10 min-h-0">
         <div 
-          className="absolute inset-x-0 bottom-0 top-0 bg-white/95 backdrop-blur-sm rounded-t-[2rem] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] border-t border-white/50 overflow-hidden flex flex-col"
+          className="absolute inset-x-0 bottom-0 top-0 rounded-t-[2rem] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] border-t border-white/50 overflow-hidden flex flex-col"
           style={{
             boxShadow: '0 -8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
           }}
         >
+          {/* 背景图 - 限制在滑动窗口内部 */}
+          <div 
+            className="absolute inset-0 bg-contain bg-bottom bg-no-repeat pointer-events-none z-0"
+            style={{ 
+              backgroundImage: 'url(/home-bg.png.png)',
+              backgroundSize: 'auto 75%',
+              backgroundPosition: 'center bottom 20px',
+              opacity: 0.25
+            }}
+          />
+          
           {/* 滑动指示条 */}
-          <div className="flex-shrink-0 pt-3 pb-2 flex justify-center">
+          <div className="flex-shrink-0 pt-3 pb-2 flex justify-center relative z-10">
             <div className="w-12 h-1.5 bg-gray-300/80 rounded-full"></div>
           </div>
           
           {/* 标题 */}
-          <div className="flex-shrink-0 px-6 pb-3">
+          <div className="flex-shrink-0 px-6 pb-3 relative z-10">
             <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
               <span className="material-icons-round text-primary">apps</span>
               四星手语
@@ -198,7 +199,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
           </div>
           
           {/* 可滚动内容区域 */}
-          <div className="flex-1 overflow-y-auto px-6 pb-6 scroll-smooth" style={{ scrollbarWidth: 'thin' }}>
+          <div className="flex-1 overflow-y-auto px-6 pb-6 scroll-smooth relative z-10" style={{ scrollbarWidth: 'thin' }}>
             <div className="grid grid-cols-2 gap-4">
               <div 
                 onClick={() => onNavigate(Page.LEARNING, undefined, 'core')}
