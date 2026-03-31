@@ -103,9 +103,18 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
           <div className="w-12 h-12 bg-white rounded-full shadow-bouncy flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer">
             <img alt="User" className="w-10 h-10 rounded-full border-2 border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsYvFGGfTEcr8eeBY60uN_pRXnqYm71l-TfdCNrv30DtqmPzjeSaTSOxRXQQYWoui3DOaQsl_XQm0EFVIcqpQhhyKFWiLwPghEm-RyjEDhOl5jORpfjID18Pdq_LxwjFDykGEnnAWnmUWVgsz5XBu-3Kja6v0I_gmnlNk4v2LWhrSTxju19xWByzxz2yxV8xKa_SIC3z9NxJ_wEoPuywTVQ0dXIP01H4E0v87UGxHhdalDVCjzBQIlKp79XhJAbtNPfYCc-KiMsuw"/>
           </div>
-          <div>
+          <div className="relative">
             <h2 className="text-sm font-bold text-gray-400 uppercase tracking-wider">我的学习中心</h2>
             <h1 className="text-2xl font-black text-gray-800 leading-none">学习小明星</h1>
+            {/* 思考姿态猩猩 - 放置在学习小明星文字右边 */}
+            <div className="absolute -right-12 -top-2 w-12 h-12 md:w-14 md:h-14 opacity-70 pointer-events-none select-none">
+              <img 
+                alt="思考猩猩" 
+                src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=orangutan-think&backgroundColor=e5e7eb"
+                className="w-full h-full object-contain animate-pulse"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
         <button className="w-12 h-12 bg-white rounded-full shadow-bouncy flex items-center justify-center text-secondary">
@@ -113,31 +122,20 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
         </button>
       </header>
 
-      {/* Segmented Control with Orangutan */}
-      <div className="relative mb-8">
-        <div className="bg-gray-100 p-1.5 rounded-2xl flex items-center">
-          <button 
-            onClick={() => handleTabToggle('core')}
-            className={`flex-1 py-2.5 rounded-xl text-sm font-black transition-all ${activeTab === 'core' ? 'bg-white text-primary shadow-sm' : 'text-gray-500'}`}
-          >
-            常规教学
-          </button>
-          <button 
-            onClick={() => handleTabToggle('extended')}
-            className={`flex-1 py-2.5 rounded-xl text-sm font-black transition-all ${activeTab === 'extended' ? 'bg-white text-tertiary shadow-sm' : 'text-gray-500'}`}
-          >
-            拓展学习
-          </button>
-        </div>
-        {/* 思考姿态猩猩 - 放置在标签切换器右上方空白区域 */}
-        <div className="absolute -top-2 right-0 w-16 h-16 md:w-20 md:h-20 opacity-60 pointer-events-none select-none">
-          <img 
-            alt="思考猩猩" 
-            src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=orangutan-think&backgroundColor=e5e7eb"
-            className="w-full h-full object-contain animate-pulse"
-            loading="lazy"
-          />
-        </div>
+      {/* Segmented Control */}
+      <div className="bg-gray-100 p-1.5 rounded-2xl flex items-center mb-8">
+        <button 
+          onClick={() => handleTabToggle('core')}
+          className={`flex-1 py-2.5 rounded-xl text-sm font-black transition-all ${activeTab === 'core' ? 'bg-white text-primary shadow-sm' : 'text-gray-500'}`}
+        >
+          常规教学
+        </button>
+        <button 
+          onClick={() => handleTabToggle('extended')}
+          className={`flex-1 py-2.5 rounded-xl text-sm font-black transition-all ${activeTab === 'extended' ? 'bg-white text-tertiary shadow-sm' : 'text-gray-500'}`}
+        >
+          拓展学习
+        </button>
       </div>
 
       {activeTab === 'core' ? (
