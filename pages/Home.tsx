@@ -20,20 +20,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
     id: 'friend',
     title: '朋友',
     pinyin: 'Péng Yǒu',
-    thumbnail: '/api/images/default/thumbnail',
+    thumbnail: '/friend-thumb.png',
     tip: '表达"朋友"时，双手食指钩在一起，象征着紧密的联结。',
     steps: [
       {
         id: 1,
         title: '食指相对',
         description: '双手食指伸出，指尖相对。',
-        image: '/api/images/default/step'
+        image: '/friend-step1.png'
       },
       {
         id: 2,
         title: '相钩结合',
         description: '左右食指互相钩在一起，轻轻拉动。',
-        image: '/api/images/default/step'
+        image: '/friend-step2.png'
       }
     ]
   };

@@ -66,10 +66,10 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, onBack }) => {
 
       <main className="flex-1 flex flex-col relative pb-20">
         <div className="px-4 mb-4">
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-md border-2 border-white bg-black group">
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-md border-2 border-white bg-gradient-to-br from-orange-100 to-yellow-50 group">
             <img 
               alt="Video thumbnail" 
-              className="w-full h-full object-cover opacity-80" 
+              className="w-full h-full object-contain p-2" 
               src={lesson.thumbnail}
               loading="lazy"
             />
@@ -99,8 +99,8 @@ const LessonDetail: React.FC<LessonDetailProps> = ({ lesson, onBack }) => {
 
           {lesson.steps.map((step) => (
             <div key={step.id} className="flex gap-3 mb-4 items-start">
-              <div className="flex-shrink-0 w-16 h-16 bg-background-light rounded-xl overflow-hidden border border-gray-100 p-1.5">
-                <img alt={step.title} className="w-full h-full object-contain mix-blend-multiply" src={step.image} loading="lazy"/>
+              <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl overflow-hidden border border-gray-100 p-1">
+                <img alt={step.title} className="w-full h-full object-contain" src={step.image} loading="lazy"/>
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-1.5 mb-1">
