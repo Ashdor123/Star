@@ -165,7 +165,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, userAvatar, userName }) => {
         </div>
         <div className="w-28 flex justify-center">
           <div className="animate-bounce-slow relative">
-            <img alt="Orangutan Mascot" className="w-24 h-24 drop-shadow-xl" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cartoon%20orangutan%20waving%20friendly%20smile%20simple%20style&image_size=square" loading="lazy"/>
+            <img alt="打招呼猩猩" className="w-24 h-24 drop-shadow-xl object-contain" src="https://minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com/ccv2%2F2026-03-31%2FMiniMax-M2.7%2F1687257157088627%2Fwave-orangutan.png?Expires=1775025578&OSSAccessKeyId=LTAI5tGLnRTkBjLuYPjNcKQ8&Signature=example%3D" loading="lazy"/>
           </div>
         </div>
       </div>

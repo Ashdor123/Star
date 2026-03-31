@@ -98,16 +98,6 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
 
   return (
     <div className="flex flex-col min-h-screen px-6 pt-12 pb-8 relative overflow-hidden">
-      {/* 思考姿态猩猩装饰 - 学习界面专属 */}
-      <div className="absolute top-20 right-4 w-24 h-24 md:w-32 md:h-32 opacity-30 md:opacity-40 pointer-events-none select-none z-0">
-        <img 
-          alt="思考猩猩" 
-          src="https://minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com/ccv2%2F2026-03-31%2FMiniMax-M2.7%2F1687257157088627%2F860abaf9a7d480356baf9b6f3c3d8300d62a755029548af0032d13dac3813b16..png?Expires=1775025578&OSSAccessKeyId=LTAI5tGLnRTkBjLuYPjNcKQ8&Signature=d6O7fyxiuGXIMRTrmcFiKJCJH3I%3D"
-          className="w-full h-full object-contain animate-pulse"
-          loading="lazy"
-        />
-      </div>
-      
       <header className="flex items-center justify-between mb-8 relative z-10">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-white rounded-full shadow-bouncy flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer">
@@ -123,20 +113,31 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
         </button>
       </header>
 
-      {/* Segmented Control */}
-      <div className="bg-gray-100 p-1.5 rounded-2xl flex items-center mb-8">
-        <button 
-          onClick={() => handleTabToggle('core')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-black transition-all ${activeTab === 'core' ? 'bg-white text-primary shadow-sm' : 'text-gray-500'}`}
-        >
-          常规教学
-        </button>
-        <button 
-          onClick={() => handleTabToggle('extended')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-black transition-all ${activeTab === 'extended' ? 'bg-white text-tertiary shadow-sm' : 'text-gray-500'}`}
-        >
-          拓展学习
-        </button>
+      {/* Segmented Control with Orangutan */}
+      <div className="relative mb-8">
+        <div className="bg-gray-100 p-1.5 rounded-2xl flex items-center">
+          <button 
+            onClick={() => handleTabToggle('core')}
+            className={`flex-1 py-2.5 rounded-xl text-sm font-black transition-all ${activeTab === 'core' ? 'bg-white text-primary shadow-sm' : 'text-gray-500'}`}
+          >
+            常规教学
+          </button>
+          <button 
+            onClick={() => handleTabToggle('extended')}
+            className={`flex-1 py-2.5 rounded-xl text-sm font-black transition-all ${activeTab === 'extended' ? 'bg-white text-tertiary shadow-sm' : 'text-gray-500'}`}
+          >
+            拓展学习
+          </button>
+        </div>
+        {/* 思考姿态猩猩 - 放置在标签切换器右上方空白区域 */}
+        <div className="absolute -top-2 right-0 w-16 h-16 md:w-20 md:h-20 opacity-60 pointer-events-none select-none">
+          <img 
+            alt="思考猩猩" 
+            src="https://minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com/ccv2%2F2026-03-31%2FMiniMax-M2.7%2F1687257157088627%2F860abaf9a7d480356baf9b6f3c3d8300d62a755029548af0032d13dac3813b16..png?Expires=1775025578&OSSAccessKeyId=LTAI5tGLnRTkBjLuYPjNcKQ8&Signature=d6O7fyxiuGXIMRTrmcFiKJCJH3I%3D"
+            className="w-full h-full object-contain animate-pulse"
+            loading="lazy"
+          />
+        </div>
       </div>
 
       {activeTab === 'core' ? (
