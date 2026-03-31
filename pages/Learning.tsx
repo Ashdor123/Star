@@ -110,7 +110,7 @@ const Learning: React.FC<LearningProps> = ({ onNavigate, initialTab, onTabChange
             <div className="absolute -right-12 -top-2 w-12 h-12 md:w-14 md:h-14 opacity-70 pointer-events-none select-none">
               <img 
                 alt="思考猩猩" 
-                src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=orangutan-think&backgroundColor=e5e7eb"
+                src="/orangutan-think.svg"
                 className="w-full h-full object-contain animate-pulse"
                 loading="lazy"
               />
